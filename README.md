@@ -13,7 +13,7 @@ Then `cd petitions-rewrite`
 Verify that it was successfully installed: `python -c "import django; print(django.get_version())"`
 
 5. Configuration:
-    * [Create a secret key](https://django-generate-secretkey.readthedocs.io/en/latest/)
+    * [Create a secret key](https://www.miniwebtool.com/django-secret-key-generator/)
     * Rename `conf.json.sample` to `conf.json`
     * Add the secret key generated above to `conf.json`
 
@@ -24,4 +24,4 @@ Navigate to http://127.0.0.1:8000 to view
 ### References:
 
 * [Server side rendered Django tutorial](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django)
-* [Installing Django on Winodws Subsystem for Linux (WSL)](https://www.youtube.com/watch?v=Z4D7Mv-MuNg)
+* [Installing Django on Windows Subsystem for Linux (WSL)](https://www.youtube.com/watch?v=Z4D7Mv-MuNg)
