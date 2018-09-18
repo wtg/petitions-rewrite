@@ -3,7 +3,7 @@
 1. Clone the repository: `git clone https://github.com/wtg/petitions-rewrite.git`<br>
 Then `cd petitions-rewrite`
 
-2. Install [virtualenv](https://virtualenv.pypa.io/en/stable/installation/).
+2. Install [virtualenv](https://virtualenv.pypa.io/en/stable/installation/)
 
     * Create the virtual environment with python 3.5 or greater: `virtualenv --python=/usr/bin/<PYTHON_VERSION> petitions-env`
 
@@ -15,12 +15,13 @@ Verify that it was successfully installed: `python -c "import django; print(djan
 5. Configuration:
     * [Create a secret key](https://django-generate-secretkey.readthedocs.io/en/latest/)
     * Rename `conf.json.sample` to `conf.json`
-    * Add the secret key generate above to `conf.json`
+    * Add the secret key generated above to `conf.json`
 
-6. Run the application: `python manage.py runserver`
+6. Run the site: `python manage.py runserver`<br>
+Navigate to http://127.0.0.1:8000 to view
 
 
-### References
+### References:
 
 * [Server side rendered Django tutorial](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django)
 * [Installing Django on Winodws Subsystem for Linux (WSL)](https://www.youtube.com/watch?v=Z4D7Mv-MuNg)
