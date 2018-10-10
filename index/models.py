@@ -16,13 +16,13 @@ class Petitions(models.Model):
         return self.title		#returns title when asksed for the item
 
 #creates a tag, there can be many in a single petition
-class Tag(model.Model):
+class Tag(models.Model):
 	word = models.CharField(max_length=50)	
 	def __unicode__(self):
         return self.word
 
 #logs a signature, there can be many in a single petition
-class Signature(model.Model):
+class Signature(models.Model):
 	signer_initials = models.CharField(max_length=3)
 
 	def __unicode__(self):
