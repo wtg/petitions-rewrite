@@ -6,8 +6,8 @@ class Petitions(models.Model):
 
 	description = models.TextField()			#the paragraph description
 	email = models.EmailField(max_length=254)	#rcs id				
-	createdDate = models.DateTimeField(default=timezone.now)	#files the date created
-	expectedSig = models.IntegerField(300)		#the expected signature to move to the next step
+	created_date = models.DateTimeField(default=timezone.now)	#files the date created
+	expected_sig = models.IntegerField(300)		#the expected signature to move to the next step
 
 	tags = models.ManyToField(Tag, related_name='petititons')
 	signatures = models.ManyToField(Signature, related_name='petitions')
@@ -23,7 +23,7 @@ class Tag(model.Model):
 
 #logs a signature, there can be many in a single petition
 class Signature(model.Model):
-	signerInitials = CharField(max_length=3)
+	signer_initials = CharField(max_length=3)
 
 	def __unicode__(self):
 		return self.signerInitials
