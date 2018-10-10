@@ -26,4 +26,4 @@ class Signature(model.Model):
 	signer_initials = CharField(max_length=3)
 
 	def __unicode__(self):
-		return self.signerInitials
+		return self.signer_initials
