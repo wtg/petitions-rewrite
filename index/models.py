@@ -20,6 +20,7 @@ class Petitions(models.Model):
 #creates a tag, there can be many in a single petition
 class Tag(models.Model):
 	word = models.CharField(max_length=15)	
+
 	def __unicode__(self):
         return self.word
 
