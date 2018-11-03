@@ -19,9 +19,8 @@ Then `cd petitions-rewrite`
 Verify that it was successfully installed: `python -c "import django; print(django.get_version())"`
 
 5. Configuration:
-    * [Create a secret key](https://www.miniwebtool.com/django-secret-key-generator/)
-    * Rename `conf.json.sample` to `conf.json`
-    * Add the secret key generated above to `conf.json`
+* Open a terminal, and set a secret key enviornment variable:
+<br>`export SECRET_KEY="any string will work for development"`
 
 6. Run the site: `python manage.py runserver`<br>
 Navigate to http://127.0.0.1:8000 to view
