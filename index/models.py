@@ -1,10 +1,11 @@
 from django.db import models
 
-class Petitions(models.Model):
+class Petition(models.Model):
 	title = models.CharField(max_length=200)	#title of petition
 	description = models.CharField(max_length=4000)	#the paragraph description
 	ID = models.IntegerField(999999, primary_key=True)
 	archived = models.BooleanField(default=False)
+	hidden = models.BooleanField(default=False)
 				
 	created_date = models.DateTimeField(db_index=True, default=timezone.now)	#files the date created
 	expected_sig = models.IntegerField(300)		#the expected signature to move to the next step
@@ -68,13 +69,13 @@ class User(models.Model):
 			return True
 
 class Response(models.Model):
-	senator_invetigation = models.BooleanField(default=False)
+	senator_investigation = models.BooleanField(default=False)
 	committee_formed = models.BooleanField(default=False)
 	vote_resolution = models.BooleanField(default=False)
 	vote_referendum = models.BooleanField(default=False)
 	refer_to_other = models.BooleanField(default=False)
 	
-	invetigation_info = models.CharField(max_length=1000)
+	investigation_info = models.CharField(max_length=1000)
 	committee_info = models.CharField(max_length=1000)
 	resolution_info = models.CharField(max_length=1000)
 	referendum_info = models.CharField(max_length=1000)
