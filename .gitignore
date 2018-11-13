@@ -1,2 +1,4 @@
 petitions-env/
 conf.json
+__pycache__
+*/__pycache__
