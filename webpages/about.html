@@ -3,16 +3,32 @@
 <head>
     <title>About Us: RPI Petitions</title>
     <meta charset="utf-8">
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <!--Fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Open Sans", Calibri;
+        }
+        .header{
+            font-family: Lato;
+            background-color: red;
+            text-align: center;
+            border-radius: 5px;
+            box-shadow: 0px 2.5px rgba(255, 0, 0, 0.212);
+        }
+        .rule {
+            background-color: rgb(255, 250, 245);
+        }
+    </style>
 </head>
 <body>
     <div class="container">
-        <h3 class="text-center text-light bg-danger">About RPI Petitions</h3>
+        <h3 class="text-light header">About RPI Petitions</h3>
         <br>
         <!-- Navigation tabs -->
         <ul class="nav nav-tabs justify-content-center" role="tablist">
@@ -31,14 +47,42 @@
         <div class="tab-content">
             <div id="history" class="container tab-pane fade"><br>
                 <p>This version of RPI Petitions is the collaborative effort of members of the Rensselaer Center for Open Source (RCOS) and Student Senate.</p>
+                <p>We created this site with the hope that all RPI students can spark and encourage change, regardless of size.</p>
             </div>
             <div id="petprocess" class="container tab-pane active"><br>
                 <p>Curious about creating a new petition? Here are some steps to help get you started.</p>
-                <blockquote class="blockquote">1. Have an idea.</blockquote>
-                <p>Search for petitions that match your concerns. If a petition for your issue already exists, sign it! This will help raise support for your cause and reach the threshold of 250 signatures (as of 03/13/2015) to gain Senate support.</p>
+                <blockquote class="blockquote rule">Have an Idea.</blockquote>
+                <p>Search for petitions that match your concerns. If a petition for your issue already exists, sign it! This will help raise support for your cause and reach the amount of signatures needed to gain Senate support (250, as of 03/13/2015).</p>
+                <hr>
+                <blockquote class="blockquote rule">Write your Petition.</blockquote>
+                    <p>
+                        <a href="#">Create a Petition</a> if your issue hasn’t been raised. Use proper grammar and spelling, and make your description clear so that others can easily find your petition. Be sure to review our <a href="#moderation">Moderation Policy</a> before posting.
+                    </p>
+                    <p class="text-danger">Be careful! You can't edit or delete a petition once it is submitted. </p>
+                <hr>
+                <blockquote class="blockquote rule">Share your Petition</blockquote>
+                    <p>Use social media to spread awareness of your issue!</p>
+                    <p> A petition has one year to reach its threshold. If the threshold is not reached, then the petition is archived. You can still search for said petition, but you will be unable to sign it. Student Senate may elect to address a petition prior to reaching its threshold.</p>
             </div>
             <div id="moderation" class="container tab-pane fade"><br>
                 <p>The Rensselaer Union Student Senate empowers the Rules and Elections Committee and Web Technologies Group with moderating privileges on the RPI Petitions website. Petitions deemed inappropriate may be removed from the site at the discretion of these committees, for reasons including but not limited to: </p>
+                <ol class="rule">
+                    <li>Violation of the Senate Bylaws, Union Constitution, or external laws and regulations including those set by local, regional, or federal government. </li>
+                    <li>Mandating the hiring or firing of Institute personnel.</li>
+                    <li>Requesting removal of an elected official without specifying good cause.</li>
+                    <li>Direct personal attacks or slander.</li>
+                    <li>Sharing of personal or confidential information.</li>
+                    <li>Inappropriate or profane language.</li>
+                    <li>Discriminatory or prejudicial content.</li>
+                    <li>Redundancy with existing petitions.</li>
+                    <li>Lack of clarity in the petition's goals.</li>
+                    <li>Spamming of petitions.</li>
+                </ol>
+                <p>Petitions out-of-scope for the Student Senate may additionally be referred to other organizations where applicable. In all cases where a petition is removed or referred, its sponsor will be notified of the reason for removal or referral.</p>
+
+                <p>To appeal decisions involving a petition's removal or referral, please contact Rules and Elections at rne@union.rpi.edu.</p>
+                
+                <p>Full moderation rules may be found in Rules and Elections' official <a href="http://docs.studentsenate.rpi.edu/documents/2743/download" target="_blank">Petition and Referendum Handbook</a>.</p>
             </div>
         </div>
     </div>
