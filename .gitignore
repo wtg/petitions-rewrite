@@ -2,3 +2,5 @@ petitions-env/
 conf.json
 __pycache__
 */__pycache__
+*.OTF
+*.otf 
