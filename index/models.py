@@ -80,6 +80,8 @@ class User(models.Model):
 	admin = models.BooleanField(default=False)	#is admin?
 	banned = models.BooleanField(default=False)	#is the person banned?-- not very likely
 	initials = models.CharField(max_length=2)		#their initials
+	union_member = models.BooleanField(default=False)	#is member of the union?
+	
 
 	def __unicode__(self):
 		return self.rcs_id 	#returns their name
@@ -104,6 +106,9 @@ class User(models.Model):
 		if self.admin:
 			return True
 		return False
+
+	def get_union_member_status(self):
+		return self.union_member # returns True if a member of the Union, False otherwise
 
 	#def set_admin(self):
 	#def get_name(self):
