@@ -110,8 +110,8 @@ class User(models.Model):
 	def get_union_member_status(self):
 		return self.union_member # returns True if a member of the Union, False otherwise
 
-	#def set_admin(self):
-	#def get_name(self):
+	def set_admin(self,bool_val):
+		self.admin = bool_val
 
 class Response(models.Model):
 	senator_investigation = models.BooleanField(default=False)
@@ -145,8 +145,6 @@ class Response(models.Model):
 	def set_other (self,bool_val):
 		self.refer_to_other = bool_val
 		return self.refer_to_other
-
-
 
 	def add_info_senate(self,info):
 		self.investigation_info = info
