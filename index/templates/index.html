@@ -2,4 +2,18 @@
 
 <h1>RPI Petitions</h1>
 
+{% if user.is_authenticated %}
+  <li>Welcome user.username</li>
+  <li>User: {{ user.get_username }}</li>
+{% else %}
+  <li>Login:</li>
+  <form method="post" action="#">
+    {% csrf_token %}
+
+    <button class="button" onClick="window.open('https://cas-auth.rpi.edu/cas/login');">
+      <span class="icon">Login</span>
+    </button>
+
+  </form>
+{% endif %}
 {% endblock %}

@@ -41,16 +41,45 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'mama_cas',
+    'django_cas_ng',
 ]
+
+MAMA_CAS_SERVICES = [
+    {
+        'SERVICE': 'http://127.0.1.1:8000',
+        'CALLBACKS': [
+            'mama_cas.callbacks.user_name_attributes',
+        ],
+        'LOGOUT_ALLOW': True,
+        'LOGOUT_URL': 'http://127.0.1.1:8000/accounts/callback',
+    },
+    {
+        'SERVICE': 'http://127.0.2.1:8000',
+        'CALLBACKS': [
+            'mama_cas.callbacks.user_name_attributes',
+        ],
+        'LOGOUT_ALLOW': True,
+        'LOGOUT_URL': 'http://127.0.2.1:8000/accounts/callback',
+    },
+ ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.auth.middleware.PersistentRemoteUserMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_cas_ng.middleware.CASMiddleware',
+]
+
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.RemoteUserBackend',
+    'django_cas_ng.backends.CASBackend',
 ]
 
 ROOT_URLCONF = 'petitions.urls'
@@ -80,7 +109,10 @@ WSGI_APPLICATION = 'petitions.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
-    
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase',
+    }
 }
 
 
@@ -110,11 +142,17 @@ LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
 
+CAS_SERVER_URL = 'https://cas-auth.rpi.edu/cas/'
+
+CAS_VERSION = '3'
+
 USE_I18N = True
 
 USE_L10N = True
 
 USE_TZ = True
+
+MAMA_CAS_ENABLE_SINGLE_SIGN_OUT = True
 
 
 # Static files (CSS, JavaScript, Images)
