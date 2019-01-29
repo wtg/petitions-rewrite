@@ -7,11 +7,13 @@ Then `cd petitions-rewrite`
 
     * Install the lastest version of python: `cd && sudo apt install python3.7 python3-pip -y`
    
-    * Make python 3.* the defailt version: `update-alternatives --install /usr/bin/python python /usr/bin/python3 1`
+    * Make python 3.* the default version: `update-alternatives --install /usr/bin/python python /usr/bin/python3 1`
    
     * Check python version `python -V`
    
     * Create the virtual environment with python 3.5 or greater: `virtualenv --python=/usr/bin/<PYTHON_VERSION> petitions-env`
+    
+    * If `virtualenv --python=/usr/bin/<PYTHON_VERSION> petitions-env` fails, try `sudo apt install virtualenv` instead.
 
 3. Activate the virtual environment: `source petitions-env/bin/activate`
 
