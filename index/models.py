@@ -3,20 +3,11 @@ from django.utils import timezone
 
 # Creates a tag, there can be at most three in a single petition
 class Tag(models.Model):
-	word = models.CharField(max_length=15, primary_key=True)	
+	label = models.CharField(max_length=15, primary_key=True)	
 
 	# Returns word when asked for the tag 
 	def __unicode__(self):
-        return self.word
-
-# Logs a signature, there can be many in a single petition
-class Signature(models.Model):
-	signer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='signatures')	# The person trying to sign the petition
-	signed_date = models.DateTimeField(default=timezone.now())	# When they signed 
-
-	# Returns the signer when asked for the initials
-	def __unicode__(self):
-		return self.signer	
+        return self.word	
 
 # Creates a user based on their name, RCS ID and admin status
 class User(models.Model):
@@ -42,6 +33,15 @@ class User(models.Model):
 	# is a admin
 	def set_admin(self,bool_val):
 		self.admin = bool_val
+
+# Logs a signature, there can be many in a single petition
+class Signature(models.Model):
+	signer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='signatures')	# The person trying to sign the petition
+	signed_date = models.DateTimeField(default=timezone.now())	# When they signed 
+
+	# Returns the signer when asked for the initials
+	def __unicode__(self):
+		return self.signer
 
 # Creates a response based on whether the senate is investigating the topic of the Petition
 class Response(models.Model):
