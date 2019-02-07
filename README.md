@@ -5,7 +5,7 @@ Then `cd petitions-rewrite`
 
 2. Install [virtualenv](https://virtualenv.pypa.io/en/stable/installation/)
 
-    * Install the lastest version of python: `cd && sudo apt install python3.7 python3-pip -y`
+    * Install the latest version of python: `cd && sudo apt install python3.7 python3-pip -y`
    
     * Make python 3.* the default version: `update-alternatives --install /usr/bin/python python /usr/bin/python3 1`
    
@@ -21,7 +21,7 @@ Then `cd petitions-rewrite`
     * Verify that it was successfully installed: `python -c "import django; print(django.get_version())"`
 
 5. Configuration:
-    * Open a terminal, and set a secret key enviornment variable:
+    * Open a terminal, and set a secret key environment variable:
 <br>`export SECRET_KEY="any string will work for development"`
 
 6. Run the site: `python manage.py runserver`<br>
