@@ -5,9 +5,9 @@ from django.utils import timezone
 class Tag(models.Model):
 	label = models.CharField(max_length=15, primary_key=True)	
 
-	# Returns word when asked for the tag 
+	# Returns label when asked for the tag 
 	def __unicode__(self):
-        return self.word	
+        return self.label	
 
 # Creates a user based on their name, RCS ID and admin status
 class User(models.Model):
