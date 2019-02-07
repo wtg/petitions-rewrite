@@ -28,6 +28,9 @@ Then `cd petitions-rewrite`
 Navigate to http://127.0.0.1:8000 to view
 
 
+### Font:
+We are currently using a proprietary font, Pontiac Black. Ask a WebTech member for access to the source file, or change the font in the stylesheet for local development.
+
 ### References:
 
 * [Server side rendered Django tutorial](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Django)

@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        {% block head %}
+        <title>{% block title %}{% endblock %}</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">        
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"> 
+        {% load static %}
+        <link rel="shortcut icon" href="{%  static 'petition/favicon.ico' %}">
+        <link rel="stylesheet" href="{% static 'petition/style.css' %}">
+        {% endblock %}
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-md navbar-light bg-light">
+          <div class="container">
+              <img class="petitions-logo" src="{% static 'petition/petitions.png' %}">
+              <a class="navbar-brand mr-auto pontiac" href="">RPI Petitions</a>
+              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+              </button>
+            
+              <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                  <li class="nav-item">
+                    <a class="nav-link" href="">View All</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="">Create</a>
+                  </li>
+                </ul>
+                <ul class="navbar-nav">
+                  <li class="nav-item">
+                      <a class="nav-link" href="">About</a>
+                  </li>
+                  <li class="nav-item">
+                      <button class="btn" href="">Login</button>
+                  </li>
+                </ul>
+              </div>
+          </div>
+        </nav>
+
+        <div class="main">
+            {% block content %}{% endblock %}
+        </div>
+
+        <footer class="footer">
+            <div class="container">
+                <span class="text-muted">
+                    <p>This is an <a href="https://github.com/wtg">open source</a> project made and maintained by the Web Technologies Group of the Rensselaer Union Student Senate</p></span>
+                <a href="https://webtech.union.rpi.edu/">
+                    <img class="wtg-logo" src="{% static 'petition/wtg.svg' %}">
+                </a>
+            </div>
+        </footer>
+    
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>    
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    </body>
+</html>
