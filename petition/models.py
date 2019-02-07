@@ -36,8 +36,8 @@ class User(models.Model):
 
 # Logs a signature, there can be many in a single petition
 class Signature(models.Model):
-    signer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='signatures')	# The person trying to sign the petition
-    signed_date = models.DateTimeField(default=timezone.now())	# When they signed 
+    signer = models.ForeignKey(User, on_delete=models.CASCADE)	# The person trying to sign the petition
+    signed_date = models.DateTimeField(default=timezone.now)	# When they signed 
 
     # Returns the signer when asked for the initials
     def __unicode__(self):
@@ -107,18 +107,17 @@ class Response(models.Model):
 class Petition(models.Model):
     title = models.CharField(max_length=200)	# Title of petition
     description = models.CharField(max_length=4000)	# The paragraph description
-    ID = models.IntegerField(999999, primary_key=True)
     archived = models.BooleanField(default=False)
     hidden = models.BooleanField(default=False)
                 
-    created_date = models.DateTimeField(db_index=True, default=timezone.now())	# Files the date created
-    expected_sig = models.IntegerField(300)		# The expected signature to move to the next step
+    created_date = models.DateTimeField(db_index=True, default=timezone.now)	# Files the date created
+    expected_sig = models.IntegerField()		# The expected signature to move to the next step
 
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='petitions')	# The author of the petition
-    tags = models.ManyToManyField(Tag, related_name='petitions')	# The tags, probably a max of 3
-    signatures = models.ManyToManyField(Signature, related_name='petitions')	# The signature
+    author = models.ForeignKey(User, on_delete=models.CASCADE)	# The author of the petition
+    tags = models.ManyToManyField(Tag)	# The tags, probably a max of 3
+    signatures = models.ManyToManyField(Signature)	# The signature
 
-    senate_response = models.ForeignKey(Response, on_delete=models.CASCADE, related_name='petitions')		# If the senate has responded , their answer
+    senate_response = models.ForeignKey(Response, on_delete=models.CASCADE)		# If the senate has responded , their answer
 
     # Returns title when asked for the item
     def __unicode__(self):
@@ -140,12 +139,12 @@ class Petition(models.Model):
         return True
     # Returns true if we have enough signatures on the petition
     def check_enough_sigs(self):
-        if self.signatures.count() >= self.expected_sig:
+        if self.signatures.all().count() >= self.expected_sig:
             return True
         return False
     # Makes sure the we have less than three tags in the model
     def check_tags(self):
-        if self.tags.count() > 3:
+        if self.tags.all().count() > 3:
             return False
         return True
 
