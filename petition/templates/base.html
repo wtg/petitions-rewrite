@@ -15,7 +15,7 @@
         <nav class="navbar navbar-expand-md navbar-light bg-light">
           <div class="container">
               <img class="petitions-logo" src="{% static 'petition/petitions.png' %}">
-              <a class="navbar-brand mr-auto pontiac" href="">RPI Petitions</a>
+              <a class="navbar-brand mr-auto pontiac" href="{% url 'petition:index' %}">RPI Petitions</a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -23,18 +23,18 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                   <li class="nav-item">
-                    <a class="nav-link" href="">View All</a>
+                    <a class="nav-link" href="{% url 'petition:index' %}">View All</a>
                   </li>
                   <li class="nav-item">
-                    <a class="nav-link" href="">Create</a>
+                    <a class="nav-link" href="{% url 'petition:create_petition' %}">Create</a>
                   </li>
                 </ul>
                 <ul class="navbar-nav">
                   <li class="nav-item">
-                      <a class="nav-link" href="">About</a>
+                      <a class="nav-link" href="{% url 'petition:about' %}">About</a>
                   </li>
                   <li class="nav-item">
-                      <button class="btn" href="">Login</button>
+                      <a class="btn btn-secondary" href="{% url 'petition:login' %}">Login</a>
                   </li>
                 </ul>
               </div>

@@ -13,63 +13,18 @@
 <div class="container">
     <div class="header"><h4>Recent Petitions</h4></div>    
     <div class="grid">    
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title"><a href="#">Fix the Campus Wifi</a></h5>
-            <h6 class="card-subtitle mb-2">4 signatures</h6>
-            <a href="#" class="link">Student Life</a><br>
-            <a href="#" class="link">Technology Services</a><br>
-        </div>
+        {% for petition in petitions %}
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title"><a href="{% url 'petition:view_petition' petition.id %}">{{ petition.title }}</a></h5>
+                    <h6 class="card-subtitle mb-2">{{ petition.signatures.all.count }} signatures</h6>
+                    {% for tag in petition.tags.all %}
+                        <a href="{% url 'petition:view_tag' tag.label %}" class="link">{{ tag.label }}</a><br>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
     </div>
-
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title"><a href="#">Concerns of moving registration date ahead of SO for incoming students</a></h5>
-            <h6 class="card-subtitle mb-2">9 signatures</h6>
-            <a href="#" class="link">Academics</a><br>
-        </div>
-    </div>
-
-
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title"><a href="#">Save RPI Greek Life - Fall Reruitment</a></h5>
-            <h6 class="card-subtitle mb-2">125 signatures</h6>
-            <a href="#" class="link">Community</a><br>
-            <a href="#" class="link">Student Life</a><br>
-            <a href="#" class="link">Greek Life</a><br>
-        </div>
-    </div>
-
-    <!-- <div class="card">
-        <div class="card-body">
-            <h5 class="card-title"><a href="#">Fix the Campus Wifi</a></h5>
-            <h6 class="card-subtitle mb-2">4 signatures</h6>
-            <a href="#" class="link">Student Life</a><br>
-            <a href="#" class="link">Technology Services</a><br>
-        </div>
-    </div>
-
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title"><a href="#">Concerns of moving registration date ahead of SO for incoming students</a></h5>
-            <h6 class="card-subtitle mb-2">9 signatures</h6>
-            <a href="#" class="link">Academics</a><br>
-        </div>
-    </div>
-
-
-    <div class="card">
-        <div class="card-body">
-            <h5 class="card-title"><a href="#">Save RPI Greek Life - Fall Reruitment</a></h5>
-            <h6 class="card-subtitle mb-2">125 signatures</h6>
-            <a href="#" class="link">Community</a><br>
-            <a href="#" class="link">Student Life</a><br>
-            <a href="#" class="link">Greek Life</a><br>
-        </div>
-    </div> -->
-    </div>
-   
 </div>
 
  <!-- Add view all petitions button -->
