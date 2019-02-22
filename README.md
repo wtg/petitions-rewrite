@@ -47,10 +47,11 @@ Navigate to http://127.0.0.1:8000 to view
     export DB_PASSWORD='some_password'
     ```
 
-4. Install [`psycopg2`](http://initd.org/psycopg/docs/install.html#prerequisites)
+4. Install [`psycopg2`]
+(http://initd.org/psycopg/docs/install.html#prerequisites)
 
 5. Populate the database:
     ```
-    python manage.py makemigrations
+    python manage.py makemigrations index
     python manage.py migrate
     ```
