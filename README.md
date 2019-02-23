@@ -34,23 +34,21 @@ Navigate to http://127.0.0.1:8000 to view
 
     * Enter `psql`. If that gives an error, try `createdb`, then `psql`
     * Create a user for this database:
-    `CREATE USER some_user WITH PASSWORD 'some_password';`
+    `CREATE USER '<user>' WITH PASSWORD '<password>';`
     * Create the database:
     `CREATE DATABASE petitions WITH OWNER some_user;`
     * Grant privleges to the user:
     `GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO some_user;`
 
-3. Set the environment variables:
+3. Set the 'DATABASE_URL' environment variable:
     ```
-    export DB_NAME='petitions'
-    export DB_USER='some_user'
-    export DB_PASSWORD='some_password'
+    export DATABASE_URL='postgres://<user>:<password>@localhost/petitions'
     ```
 
 4. Install [`psycopg2`]
 (http://initd.org/psycopg/docs/install.html#prerequisites)
 
-5. Populate the database:
+5. Make migrations:
     ```
     python manage.py makemigrations index
     python manage.py migrate
