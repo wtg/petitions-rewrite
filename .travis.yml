@@ -1,0 +1,14 @@
+language: python
+
+before_install:
+  - pip install pipenv
+
+install: 
+  - pipenv install
+
+before_script:
+  - pipenv check
+  - black . --check
+
+script:
+  - pipenv run python manage.py test
