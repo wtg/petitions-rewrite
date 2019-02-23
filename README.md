@@ -28,7 +28,7 @@ Navigate to http://127.0.0.1:8000 to view
 
 ### Setting up the local database
 
-1. Install [Postgres]() for your operating system.
+1. Install Postgres for your operating system.
 
 2. Create the `petitions` database:
 
@@ -45,8 +45,7 @@ Navigate to http://127.0.0.1:8000 to view
     export DATABASE_URL='postgres://<user>:<password>@localhost/petitions'
     ```
 
-4. Install [`psycopg2`]
-(http://initd.org/psycopg/docs/install.html#prerequisites)
+4. Install [psycopg2](http://initd.org/psycopg/docs/install.html#prerequisites)
 
 5. Make migrations:
     ```
