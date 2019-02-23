@@ -15,9 +15,8 @@ class User(models.Model):
     rcs_id = models.CharField(max_length=10, primary_key=True)  # RCS ID
     name = models.CharField(max_length=50)  # The author name
     admin = models.BooleanField(default=False)  # Is admin?
-    banned = models.BooleanField(
-        default=False
-    )  # Is the person banned?-- not very likely
+    # Is the person banned?-- not very likely
+    banned = models.BooleanField(default=False)
     initials = models.CharField(max_length=2)  # Their initials
     union_member = models.BooleanField(default=False)  # Is member of the union?
 
@@ -25,26 +24,25 @@ class User(models.Model):
     def __unicode__(self):
         return self.rcs_id
 
-        # Returns the initials of the User using the RCS ID, first strips
-        # it of the digits at the end and then
-
+    # Returns the initials of the User using the RCS ID, first strips
+    # it of the digits at the end and then
     def set_initials(self):
         full_name = self.rcs_id
         name_modified = "".join([i for i in full_name if not i.isdigit()])
         self.initials = name_modified[-1] + name_modified[0]
 
-        # Changes the bool value that dictates whether or not a character
-        # is a admin
-
+    # Changes the bool value that dictates whether or not a character
+    # is a admin
     def set_admin(self, bool_val):
         self.admin = bool_val
 
 
 # Logs a signature, there can be many in a single petition
 class Signature(models.Model):
+    # The person trying to sign the petition
     signer = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="signatures"
-    )  # The person trying to sign the petition
+    )
     signed_date = models.DateTimeField(default=timezone.now())  # When they signed
 
     # Returns the signer when asked for the initials
@@ -71,53 +69,48 @@ class Response(models.Model):
     def set_senate(self, bool_val):
         self.senator_investigation = bool_val
 
-        # If there was a committee creates, set
-        # committee_formed to true, false otherwise
-
+    # If there was a committee creates, set
+    # committee_formed to true, false otherwise
     def set_committee(self, bool_val):
         self.committee_formed = bool_val
 
-        # If there was a resolution voted on, set
-        # vote_resolution to true, false otherwise
-
+    # If there was a resolution voted on, set
+    # vote_resolution to true, false otherwise
     def set_resolution(self, bool_val):
         self.vote_resolution = bool_val
 
-        # If there was a referendum voted on, set
-        # vote_referendum to true, false otherwise
-
+    # If there was a referendum voted on, set
+    # vote_referendum to true, false otherwise
     def set_referendum(self, bool_val):
         self.vote_referendum = bool_val
 
-        # If some other action was taken/ referred to another group,
-        # set refer_to_other to true, false otherwise
-
+    # If some other action was taken/ referred to another group,
+    # set refer_to_other to true, false otherwise
     def set_other(self, bool_val):
         self.refer_to_other = bool_val
 
-        # Add information for the senate investigation
-
+    # Add information for the senate investigation
     def add_info_senate(self, info):
         self.investigation_info = info
         return self.investigation_info
-        # Add information on the committee assigned to help
 
+    # Add information on the committee assigned to help
     def add_info_committee(self, info):
         self.committee_info = info
         return self.committee_info
-        # Add information on the resolution that was voted on
 
+    # Add information on the resolution that was voted on
     def add_info_resolution(self, info):
         self.resolution_info = info
         return self.resolution_info
-        # Add information on the referendum that wsa voted on
 
+    # Add information on the referendum that wsa voted on
     def add_info_referendum(self, info):
         self.referendum_info = info
         return self.referendum_info
-        # Add information on the other group that the issue was
-        # referred to
 
+    # Add information on the other group that the issue was
+    # referred to
     def add_info_other(self, info):
         self.refer_other_info = info
         return self.refer_other_info
@@ -130,56 +123,47 @@ class Petition(models.Model):
     archived = models.BooleanField(default=False)
     hidden = models.BooleanField(default=False)
 
-    created_date = models.DateTimeField(
-        db_index=True, default=timezone.now()
-    )  # Files the date created
-    expected_sig = models.IntegerField(
-        300
-    )  # The expected signature to move to the next step
-
-    author = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="petitions"
-    )  # The author of the petition
-    tags = models.ManyToManyField(
-        Tag, related_name="petitions"
-    )  # The tags, probably a max of 3
-    signatures = models.ManyToManyField(
-        Signature, related_name="petitions"
-    )  # The signature
-
+    # Files the date created
+    created_date = models.DateTimeField(db_index=True, default=timezone.now())
+    # The expected signature to move to the next step
+    expected_sig = models.IntegerField(300)
+    # The author of the petition
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name="petitions")
+    # The tags, probably a max of 3
+    tags = models.ManyToManyField(Tag, related_name="petitions")
+    # The signature
+    signatures = models.ManyToManyField(Signature, related_name="petitions")
+    # If the senate has responded , their answer
     senate_response = models.ForeignKey(
         Response, on_delete=models.CASCADE, related_name="petitions"
-    )  # If the senate has responded , their answer
+    )
 
     # Returns title when asked for the item
     def __unicode__(self):
         return self.title
 
-        # Sets the hidden variable as true if we don't want it to
-        # Be displayed in the main site
-
+    # Sets the hidden variable as true if we don't want it to
+    # Be displayed in the main site
     def set_hidden(self, bool_val):
         self.hidden = bool_val
 
-        # If the petition isn't active, we can set the archived variable as true
-
+    # If the petition isn't active, we can set the archived variable as true
     def set_archived(self, bool_val):
         self.archived = bool_val
 
-        # Adds a description to the basic petitions model, with a max length
-        # of 4000 words
-
+    # Adds a description to the basic petitions model, with a max length
+    # of 4000 words
     def add_description(self, descript):
         self.description = descript
         return True
-        # Returns true if we have enough signatures on the petition
 
+    # Returns true if we have enough signatures on the petition
     def check_enough_sigs(self):
         if self.signatures.count() >= self.expected_sig:
             return True
         return False
-        # Makes sure the we have less than three tags in the model
 
+    # Makes sure the we have less than three tags in the model
     def check_tags(self):
         if self.tags.count() > 3:
             return False
