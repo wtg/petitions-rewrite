@@ -1,23 +1,22 @@
 from django.shortcuts import render
-from index.forms import CreatePetitionForm
-from index.models import Petition
+from django.views import generic
+from .forms import CreatePetitionForm
+from .models import Petition, Tag
 
-# Create your views here.
 
 def index(request):
-    return render(request, 'index.html')
+    petitions = Petition.objects.all()
+    context = {
+        'petitions': petitions,
+    }
+    return render(request, 'index.html', context=context)
 
-def view_all(request):
+def all(request):
     return render(request, 'all.html')
 
 def create(request):
     form = CreatePetitionForm()
-    content = {
+    context = {
         'form': form,
     }
-    return render(request, "create.html", content)
-
-class PetitionGridView():
-    model = Petition
-    context_object_name = 'petitions'
-    # queryset = Petition.objects.all()
+    return render(request, "create.html", context=context)

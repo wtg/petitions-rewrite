@@ -56,25 +56,6 @@ body {
     margin-left: 40px;
     margin-bottom: 20px;
 }
-
-.grid {
-    /* max-width: 1020px;
-    margin: auto;
-    padding-left: 5%;
-    padding-right: 5%;
-    padding-bottom: 125px; */
-
-    width: 90%;
-    max-width: 1240px;
-    margin: 0 auto;
-    
-    display: grid;
-    
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: auto;
-    grid-gap: 20px;
-}
-
 .card-title a {
     color: #ed1c24;
 }
@@ -104,7 +85,21 @@ body {
     margin-bottom: 50px;
 }
 
-#view-all {
-    display: inline-block;
-    /* background: #ed1c24; */
+.flex-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    list-style-type: none;
 }
+
+.flex-item {
+    padding: 5px;
+    width: 300px;
+    height: 200px;
+    margin-top: 10px;
+    
+    /* line-height: 150px; */
+    /* font-weight: bold;
+    font-size: 3em; */
+    text-align: center;
+  }
