@@ -11,7 +11,7 @@ matrix:
 env:
   global:
   - PIPENV_IGNORE_VIRTUALENVS=1
-  
+
 before_install:
   - pip install pipenv
 
@@ -20,7 +20,7 @@ install:
 
 before_script:
   - pipenv check
-  - black . --check
+  - pipenv run black . --check
 
 script:
   - pipenv run python manage.py test
