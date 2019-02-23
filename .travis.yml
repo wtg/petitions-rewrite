@@ -8,6 +8,10 @@ matrix:
       dist: xenial
       sudo: true
 
+env:
+  global:
+  - PIPENV_IGNORE_VIRTUALENVS=1
+  
 before_install:
   - pip install pipenv
 
