@@ -11,6 +11,7 @@ matrix:
 env:
   global:
   - PIPENV_IGNORE_VIRTUALENVS=1
+  - SECRET_KEY='sosecret'
 
 before_install:
   - pip install pipenv
