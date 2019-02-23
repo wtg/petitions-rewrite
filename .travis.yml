@@ -4,7 +4,7 @@ before_install:
   - pip install pipenv
 
 install: 
-  - pipenv install
+  - pipenv install --python 3.6
 
 before_script:
   - pipenv check
