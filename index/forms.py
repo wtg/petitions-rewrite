@@ -1,6 +1,6 @@
 # from django.forms import ModelForm
 from django import forms
-from index.models import Petition, Tag
+from .models import Petition, Tag
 
 class CreatePetitionForm(forms.ModelForm):
     tags = forms.ModelMultipleChoiceField(
