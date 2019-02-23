@@ -28,4 +28,3 @@ Navigate to http://127.0.0.1:8000 to view
 
 
 Check the [Wiki](https://github.com/wtg/petitions-rewrite/wiki) for Django references and more documentation.
-
