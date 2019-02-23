@@ -8,6 +8,9 @@ class Tag(models.Model):
 	# Returns label when asked for the tag 
 	def __unicode__(self):
 		return self.label	
+	
+	def __str__(self):
+		return self.label
 
 # Creates a user based on their name, RCS ID and admin status
 class User(models.Model):
@@ -107,18 +110,18 @@ class Response(models.Model):
 class Petition(models.Model):
 	title = models.CharField(max_length=200)	# Title of petition
 	description = models.CharField(max_length=4000)	# The paragraph description
-	ID = models.IntegerField(999999, primary_key=True)
+	ID = models.IntegerField(primary_key=True)
 	archived = models.BooleanField(default=False)
 	hidden = models.BooleanField(default=False)
 				
 	created_date = models.DateTimeField(db_index=True, default=timezone.now())	# Files the date created
 	expected_sig = models.IntegerField(300)		# The expected signature to move to the next step
 
-	author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='petitions')	# The author of the petition
-	tags = models.ManyToManyField(Tag, related_name='petitions')	# The tags, probably a max of 3
-	signatures = models.ManyToManyField(Signature, related_name='petitions')	# The signature
+	author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='petitions', blank=True, null=True)	# The author of the petition
+	tags = models.ManyToManyField(Tag, related_name='petitions', blank=True, null=True)	# The tags, probably a max of 3
+	signatures = models.ManyToManyField(Signature, related_name='petitions', blank=True)	# The signature
 
-	senate_response = models.ForeignKey(Response, on_delete=models.CASCADE, related_name='petitions')		# If the senate has responded , their answer
+	senate_response = models.ForeignKey(Response, on_delete=models.CASCADE, related_name='petitions', blank=True, null=True)		# If the senate has responded , their answer
 
 	# Returns title when asked for the item
 	def __unicode__(self):
