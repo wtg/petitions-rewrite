@@ -3,109 +3,120 @@ from django.utils import timezone
 
 # Creates a tag, there can be at most three in a single petition
 class Tag(models.Model):
-	label = models.CharField(max_length=15, primary_key=True)	
+    label = models.CharField(max_length=15, primary_key=True)
 
-	# Returns label when asked for the tag 
-	def __unicode__(self):
-		return self.label	
-	
-	def __str__(self):
-		return self.label
+    # Returns label when asked for the tag
+    def __unicode__(self):
+        return self.label
+
+    def __str__(self):
+        return self.label
 
 # Creates a user based on their name, RCS ID and admin status
 class User(models.Model):
-	rcs_id = models.CharField(max_length=10, primary_key = True)	# RCS ID	
-	name = models.CharField(max_length=50)	# The author name
-	admin = models.BooleanField(default=False)	# Is admin?
-	banned = models.BooleanField(default=False)	# Is the person banned?-- not very likely
-	initials = models.CharField(max_length=2)		# Their initials
-	union_member = models.BooleanField(default=False)	# Is member of the union?
-	
-	# Returns their name
-	def __unicode__(self):
-		return self.rcs_id 	
-	
-	# Returns the initials of the User using the RCS ID, first strips
-	# it of the digits at the end and then 
-	def set_initials(self):
-		full_name = self.rcs_id
-		name_modified = ''.join([i for i in full_name if not i.isdigit()])
-		self.initials = name_modified[-1] + name_modified[0]
-	 
-	# Changes the bool value that dictates whether or not a character
-	# is a admin
-	def set_admin(self,bool_val):
-		self.admin = bool_val
+    rcs_id = models.CharField(max_length=10, primary_key=True)  # RCS ID
+    name = models.CharField(max_length=50)  # The author name
+    admin = models.BooleanField(default=False)  # Is admin?
+    # Is the person banned?-- not very likely
+    banned = models.BooleanField(default=False)
+    initials = models.CharField(max_length=2)  # Their initials
+    union_member = models.BooleanField(default=False)  # Is member of the union?
+
+    # Returns their name
+    def __unicode__(self):
+        return self.rcs_id
+
+    # Returns the initials of the User using the RCS ID, first strips
+    # it of the digits at the end and then
+    def set_initials(self):
+        full_name = self.rcs_id
+        name_modified = "".join([i for i in full_name if not i.isdigit()])
+        self.initials = name_modified[-1] + name_modified[0]
+
+    # Changes the bool value that dictates whether or not a character
+    # is a admin
+    def set_admin(self, bool_val):
+        self.admin = bool_val
+
 
 # Logs a signature, there can be many in a single petition
 class Signature(models.Model):
-	signer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='signatures')	# The person trying to sign the petition
-	signed_date = models.DateTimeField(default=timezone.now())	# When they signed 
+    # The person trying to sign the petition
+    signer = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="signatures"
+    )
+    signed_date = models.DateTimeField(default=timezone.now())  # When they signed
 
-	# Returns the signer when asked for the initials
-	def __unicode__(self):
-		return self.signer
+    # Returns the signer when asked for the initials
+    def __unicode__(self):
+        return self.signer
+
 
 # Creates a response based on whether the senate is investigating the topic of the Petition
 class Response(models.Model):
-	senator_investigation = models.BooleanField(default=False)
-	committee_formed = models.BooleanField(default=False)
-	vote_resolution = models.BooleanField(default=False)
-	vote_referendum = models.BooleanField(default=False)
-	refer_to_other = models.BooleanField(default=False)
-	
-	investigation_info = models.CharField(max_length=1000)
-	committee_info = models.CharField(max_length=1000)
-	resolution_info = models.CharField(max_length=1000)
-	referendum_info = models.CharField(max_length=1000)
-	refer_other_info = models.CharField(max_length=1000)
+    senator_investigation = models.BooleanField(default=False)
+    committee_formed = models.BooleanField(default=False)
+    vote_resolution = models.BooleanField(default=False)
+    vote_referendum = models.BooleanField(default=False)
+    refer_to_other = models.BooleanField(default=False)
 
-	# If there is a senate investigation in place, set 
-	# senator_investigation to true, false otherwise
-	def set_senate(self,bool_val):
-		self.senator_investigation = bool_val
-		
-	# If there was a committee creates, set 
-	# committee_formed to true, false otherwise
-	def set_committee (self,bool_val):
-		self.committee_formed = bool_val
+    investigation_info = models.CharField(max_length=1000)
+    committee_info = models.CharField(max_length=1000)
+    resolution_info = models.CharField(max_length=1000)
+    referendum_info = models.CharField(max_length=1000)
+    refer_other_info = models.CharField(max_length=1000)
 
-	# If there was a resolution voted on, set 
-	# vote_resolution to true, false otherwise
-	def set_resolution (self,bool_val):
-		self.vote_resolution = bool_val
+    # If there is a senate investigation in place, set
+    # senator_investigation to true, false otherwise
+    def set_senate(self, bool_val):
+        self.senator_investigation = bool_val
 
-	# If there was a referendum voted on, set 
-	# vote_referendum to true, false otherwise
-	def set_referendum (self,bool_val):
-		self.vote_referendum = bool_val
+    # If there was a committee creates, set
+    # committee_formed to true, false otherwise
+    def set_committee(self, bool_val):
+        self.committee_formed = bool_val
 
-	# If some other action was taken/ referred to another group,
-	# set refer_to_other to true, false otherwise
-	def set_other (self,bool_val):
-		self.refer_to_other = bool_val
+    # If there was a resolution voted on, set
+    # vote_resolution to true, false otherwise
+    def set_resolution(self, bool_val):
+        self.vote_resolution = bool_val
 
-	# Add information for the senate investigation
-	def add_info_senate(self,info):
-		self.investigation_info = info
-		return self.investigation_info
-	# Add information on the committee assigned to help
-	def add_info_committee (self,info):
-		self.committee_info = info
-		return self.committee_info
-	# Add information on the resolution that was voted on
-	def add_info_resolution (self,info):
-		self.resolution_info = info
-		return self.resolution_info
-	# Add information on the referendum that wsa voted on
-	def add_info_referendum (self,info):
-		self.referendum_info = info
-		return self.referendum_info
-	# Add information on the other group that the issue was
-	# referred to
-	def add_info_other (self, info):
-		self.refer_other_info = info
-		return self.refer_other_info
+    # If there was a referendum voted on, set
+    # vote_referendum to true, false otherwise
+    def set_referendum(self, bool_val):
+        self.vote_referendum = bool_val
+
+    # If some other action was taken/ referred to another group,
+    # set refer_to_other to true, false otherwise
+    def set_other(self, bool_val):
+        self.refer_to_other = bool_val
+
+    # Add information for the senate investigation
+    def add_info_senate(self, info):
+        self.investigation_info = info
+        return self.investigation_info
+
+    # Add information on the committee assigned to help
+    def add_info_committee(self, info):
+        self.committee_info = info
+        return self.committee_info
+
+    # Add information on the resolution that was voted on
+    def add_info_resolution(self, info):
+        self.resolution_info = info
+        return self.resolution_info
+
+    # Add information on the referendum that wsa voted on
+    def add_info_referendum(self, info):
+        self.referendum_info = info
+        return self.referendum_info
+
+    # Add information on the other group that the issue was
+    # referred to
+    def add_info_other(self, info):
+        self.refer_other_info = info
+        return self.refer_other_info
+
 
 class Petition(models.Model):
 	title = models.CharField(max_length=200)	# Title of petition

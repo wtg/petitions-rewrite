@@ -4,6 +4,7 @@ from .forms import CreatePetitionForm
 from .models import Petition, Tag
 
 
+
 def index(request):
     petitions = Petition.objects.all()
     context = {
