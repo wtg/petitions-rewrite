@@ -74,7 +74,7 @@ WSGI_APPLICATION = "petitions.wsgi.application"
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {}
-DATABASES['default'] = dj_database_url.config(default=os.environ.get('DATABASE_URL'))
+DATABASES["default"] = dj_database_url.config(default=os.environ.get("DATABASE_URL"))
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators

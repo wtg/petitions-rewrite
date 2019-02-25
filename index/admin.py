@@ -9,5 +9,6 @@ class TagAdmin(admin.ModelAdmin):
 class PetitionAdmin(admin.ModelAdmin):
     pass
 
+
 admin.site.register(Tag, TagAdmin)
 admin.site.register(Petition, PetitionAdmin)

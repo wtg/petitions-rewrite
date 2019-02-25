@@ -4,20 +4,17 @@ from .forms import CreatePetitionForm
 from .models import Petition, Tag
 
 
-
 def index(request):
     petitions = Petition.objects.all()
-    context = {
-        'petitions': petitions,
-    }
-    return render(request, 'index.html', context=context)
+    context = {"petitions": petitions}
+    return render(request, "index.html", context=context)
+
 
 def all(request):
-    return render(request, 'all.html')
+    return render(request, "all.html")
+
 
 def create(request):
     form = CreatePetitionForm()
-    context = {
-        'form': form,
-    }
+    context = {"form": form}
     return render(request, "create.html", context=context)
