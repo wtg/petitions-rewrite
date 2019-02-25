@@ -1,0 +1,27 @@
+language: python
+matrix:
+  include:
+    - python: "3.6"
+      dist: trusty
+      sudo: true
+    - python: "3.7"
+      dist: xenial
+      sudo: true
+
+env:
+  global:
+  - PIPENV_IGNORE_VIRTUALENVS=1
+  - SECRET_KEY='sosecret'
+
+before_install:
+  - pip install pipenv
+
+install: 
+  - pipenv install --python 3.6
+
+before_script:
+  - pipenv check
+  - pipenv run black . --check
+
+script:
+  - pipenv run python manage.py test
