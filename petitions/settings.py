@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import sys
 import dj_database_url
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -76,6 +77,11 @@ WSGI_APPLICATION = "petitions.wsgi.application"
 DATABASES = {}
 DATABASES["default"] = dj_database_url.config(default=os.environ.get("DATABASE_URL"))
 
+if 'test' in sys.argv:
+    DATABASES["default"] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'mydatabase'
+    }
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
