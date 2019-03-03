@@ -1,3 +1,5 @@
+Check the [Wiki](https://github.com/wtg/petitions-rewrite/wiki) for Django references and more documentation.
+
 #### Installation:
 
 1. Clone the repository and switch into the new directory:
@@ -41,29 +43,15 @@ Then commit and push any changed files.
 
 #### Setting up the local database
 
-1. Install Postgres for your operating system.
+1. Install [SQLite](https://www.sqlite.org/) for your operating system.
 
-2. Create the `petitions` database:
-
-    * Enter `psql`. If that gives an error, try `createdb`, then `psql`
-    * Create a user for this database:
-    `CREATE USER '<user>' WITH PASSWORD '<password>';`
-    * Create the database:
-    `CREATE DATABASE petitions WITH OWNER some_user;`
-    * Grant privleges to the user:
-    `GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO some_user;`
-
-3. Set the 'DATABASE_URL' environment variable:
+2. Set the 'DJANGO_SETTINGS_MODULE' environment variable to use the settings file for development (petitions/settings/dev.py):
     ```
-    export DATABASE_URL='postgres://<user>:<password>@localhost/petitions'
+    export DJANGO_SETTINGS_MODULE='petitions.settings.dev'
     ```
 
-4. Install [psycopg2](http://initd.org/psycopg/docs/install.html#prerequisites)
-
-5. Make migrations:
+3. Make migrations:
     ```
     python manage.py makemigrations index
     python manage.py migrate
     ```
-
-Check the [Wiki](https://github.com/wtg/petitions-rewrite/wiki) for Django references and more documentation.

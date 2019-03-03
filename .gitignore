@@ -6,3 +6,5 @@ __pycache__
 *.sh
 *.OTF
 *.otf
+petitions/settings.py
+mydatabase
