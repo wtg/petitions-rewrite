@@ -26,7 +26,7 @@ export SECRET_KEY="any string will work for development"
 ```
 
 7. Run the site: ```python manage.py runserver```
-Navigate to http://127.0.0.1:8000 to view
+Navigate to http://localhost:8000 to view
 
 #### Making changes:
 
@@ -41,7 +41,7 @@ black .
 ``` 
 Then commit and push any changed files.
 
-#### Setting up the local database
+#### Setting up and using the local database
 
 1. Install [SQLite](https://www.sqlite.org/) for your operating system.
 
@@ -55,3 +55,7 @@ Then commit and push any changed files.
     python manage.py makemigrations index
     python manage.py migrate
     ```
+
+4. Add test data:
+    * Add an admin user - `python manage.py createsuperuser`
+    * Go to http://localhost:8000/admin to add data
