@@ -12,6 +12,7 @@ env:
   global:
   - PIPENV_IGNORE_VIRTUALENVS=1
   - SECRET_KEY='sosecret'
+  - DJANGO_SETTINGS_MODULE='petitions.settings.dev'
 
 before_install:
   - pip install pipenv
