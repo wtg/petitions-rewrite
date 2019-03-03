@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
             model_name="petition",
             name="created_date",
             field=models.DateTimeField(
-                db_index=True, default=index.models.date_default
+                db_index=True, default=index.models.timezone.now
             ),
         ),
         migrations.AlterField(
@@ -26,6 +26,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name="signature",
             name="signed_date",
-            field=models.DateTimeField(default=index.models.date_default),
+            field=models.DateTimeField(default=index.models.timezone.now),
         ),
     ]

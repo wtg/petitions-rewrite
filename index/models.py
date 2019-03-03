@@ -1,11 +1,6 @@
 from django.db import models
 from django.utils import timezone
 
-
-def date_default():
-    return timezone.now()
-
-
 # Creates a tag, there can be at most three in a single petition
 class Tag(models.Model):
     label = models.CharField(max_length=15, primary_key=True)
@@ -51,7 +46,7 @@ class Signature(models.Model):
     signer = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="signatures"
     )
-    signed_date = models.DateTimeField(default=date_default)  # When they signed
+    signed_date = models.DateTimeField(default=timezone.now)  # When they signed
 
     # Returns the signer when asked for the initials
     def __unicode__(self):
@@ -132,7 +127,7 @@ class Petition(models.Model):
     hidden = models.BooleanField(default=False)
 
     created_date = models.DateTimeField(
-        db_index=True, default=date_default
+        db_index=True, default=timezone.now
     )  # Files the date created
     expected_sig = models.IntegerField(
         300
