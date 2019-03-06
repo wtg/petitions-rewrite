@@ -1,0 +1,93 @@
+
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+@font-face {
+    font-family: 'Pontiac';
+    src: url("PONTIAC_BLACK.OTF");
+}
+.navbar {
+    background-color: #ebebeb;
+    width: 100%;
+}
+
+.nav-link {
+    color: #000000;
+}
+
+.wtg-logo {
+    height: 30px;
+}
+
+.petitions-logo {
+    height: 30px;
+    margin-right: 10px;
+}
+
+.pontiac {
+    font-family: 'Pontiac';
+}
+
+.jumbotron {
+    text-align: center;
+    background: 
+        linear-gradient(rgba(0, 0, 0, 0.8),
+    rgba(0, 0, 0, 0.8)), 
+        url("carnegie_pittsburgh_slide.jpg");
+    background-position: center;
+    height: 400px; 
+    color: #ebebeb;
+    
+}
+
+.caption {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    max-width: 60%;
+}
+
+.header {
+    margin-left: 40px;
+    margin-bottom: 20px;
+}
+.card-title a {
+    color: #ed1c24;
+}
+
+.card-subtitle {
+    color: #505050;
+}
+
+.link, .link:hover {
+    color: gray;
+}
+
+.footer {
+    width: 100%;
+    height: 60px;
+    bottom: 0; 
+    text-align: center;
+    font-size: 12.5px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+.flex-container {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    list-style-type: none;
+}
+
+.flex-item {
+    padding: 5px;
+    width: 300px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.card {
+    min-height: 175px;
+}

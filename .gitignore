@@ -2,3 +2,9 @@ petitions-env/
 conf.json
 __pycache__
 */__pycache__
+.vscode
+*.sh
+*.OTF
+*.otf
+petitions/settings.py
+mydatabase

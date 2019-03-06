@@ -8,5 +8,7 @@ verify_ssl = true
 [packages]
 django = "~=2.1"
 black = "==18.9b0"
+dj-database-url = "*"
+psycopg2 = "*"
 
 [requires]
