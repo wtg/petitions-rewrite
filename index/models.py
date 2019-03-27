@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 
 # Creates a tag, there can be at most three in a single petition
 class Tag(models.Model):
@@ -187,3 +188,6 @@ class Petition(models.Model):
 
         # Add tag to a petition, there can be at most three in a single petition
         # def add_tag (self):
+    
+    def get_url(self):
+        return reverse('petition-detail', args=[str(self.ID)])

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %} {{ petition.title }} {% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="header"><h4>{{ petition.title }}</h4></div>    
+    
+    <p>{{ petition.description }}</p>
+    
+</div>
+{% endblock %}

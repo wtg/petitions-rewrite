@@ -18,3 +18,8 @@ def create(request):
     form = CreatePetitionForm()
     context = {"form": form}
     return render(request, "create.html", context=context)
+
+def petition_detail(request, pk):
+    petition = Petition.objects.get(pk=pk)
+    context = {"petition": petition}
+    return render(request, "detail.html", context=context)
