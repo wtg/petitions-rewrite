@@ -17,4 +17,4 @@ def all(request):
 def create(request):
     form = CreatePetitionForm()
     context = {"form": form}
-    return render(request, "create.html", context=context)
+    return render(request, "create-petition.html", context=context)
