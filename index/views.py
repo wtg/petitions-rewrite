@@ -11,10 +11,16 @@ def index(request):
 
 
 def all(request):
-    return render(request, "all.html")
+    return render(request, "all-petitions.html")
 
 
 def create(request):
     form = CreatePetitionForm()
     context = {"form": form}
     return render(request, "create.html", context=context)
+
+def about(request):
+    return render(request, "about.html")
+
+'''def moderation(request):
+    return render(request, "about.html/#moderation")'''
