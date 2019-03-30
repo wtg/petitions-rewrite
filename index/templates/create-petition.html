@@ -3,38 +3,9 @@
 
 {% block content %}
 
-<style>
-    body {
-        background-color: rgb(251, 238, 230);
-    }
-
-    .headingbar {
-        font-family: 'Pontiac';
-        background-color: red;
-        border-radius: 5px;
-        text-align: center;
-        box-shadow: 0px 2.5px rgba(255, 0, 0, 0.212);
-    }
-    
-    .preface {
-        margin: auto;
-        width: 60%;
-        background-color: rgb(212, 212, 212);
-        padding: 10px;
-    }
-
-    .creating {
-        background-color: red;
-        padding: 20px;
-    }
-
-    .guidelink {
-        color: red;
-    }
-</style>
-
 <!--Page Heading-->
 <div class="container">
+    <br>
     <h3 class="text-dark headingbar pontiac">Create a Petition</h3>
 </div>
 <br>
@@ -52,7 +23,7 @@
     <!--Enter your petition's name. There will be a character limit to keep the sections neat and enforce simple titles-->
     <div class="input-group mb-3">
         <div class="input-group-prepend">
-            <span class="input-group-text" id="basic-addon1">Name:</span>
+            <span class="input-group-text" id="basic-addon1">Name of Petition</span>
         </div>
         <input type="text" class="form-control" placeholder="Enter petition name here" aria-label="Username"
             aria-describedby="basic-addon1">
@@ -93,8 +64,10 @@
 </div>
 <br>
 <!--The 'send petition' button-->
-<div class="container" role="group" aria-label="sendPetition">
+<div class="container" role="group" aria-label="sendPetition" >
+    <div class="text-center">
+        <button type="button" class="btn btn-primary btn-danger">Create Petition</button>
 
-    <button type="button" class="btn btn-primary btn-block">Create Petition</button>
+    </div>
 </div>
 {% endblock %}
