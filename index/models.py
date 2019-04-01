@@ -122,16 +122,13 @@ class Response(models.Model):
 class Petition(models.Model):
     title = models.CharField(max_length=200)  # Title of petition
     description = models.CharField(max_length=4000)  # The paragraph description
-    ID = models.IntegerField(primary_key=True)
     archived = models.BooleanField(default=False)
     hidden = models.BooleanField(default=False)
 
     created_date = models.DateTimeField(
         db_index=True, default=timezone.now
     )  # Files the date created
-    expected_sig = models.IntegerField(
-        300
-    )  # The expected signature to move to the next step
+    expected_sig = models.IntegerField(default=300) # The expected signature to move to the next step
 
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="petitions", blank=True, null=True
