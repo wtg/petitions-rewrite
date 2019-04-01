@@ -128,7 +128,9 @@ class Petition(models.Model):
     created_date = models.DateTimeField(
         db_index=True, default=timezone.now
     )  # Files the date created
-    expected_sig = models.IntegerField(default=300) # The expected signature to move to the next step
+    expected_sig = models.IntegerField(
+        default=300
+    )  # The expected signature to move to the next step
 
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="petitions", blank=True, null=True
