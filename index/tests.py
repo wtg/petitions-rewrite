@@ -5,80 +5,87 @@ from index.models import Petition, Tag, User, Response, Signature
 
 
 class PetitionModelTestCase(unittest.TestCase):
-    def test_title(self):
-        petition = Petition(title="Save Greek Life")
-        self.assertEqual("Save Greek Life", petition.title)
+    def test_set_hidden(self):
+        p = Petition()
+        self.assertFalse(p.hidden)
 
-    def test_description(self):
-        petition = Petition(description="A petition to save Greek life")
-        self.assertEqual("A petition to save Greek life", petition.description)
+        p.set_hidden(True)
+        self.assertTrue(p.hidden)
 
-    def test_ID(self):
-        return
-        # I don't actually know how this works rn
+    def test_set_archived(self):
+        p = Petition()
+        self.assertFalse(p.archived)
 
-    def test_archived(self):
-        petition = Petition()
-        self.assertFalse(petition.archived)
+        p.set_archived(True)
+        self.assertTrue(p.archived)
 
-        petition.archived = True  # dunno if this is the right syntax
-        self.assertTrue(petition.archived)
+    def test_add_description(self):
+        p = Petition()
+        p.add_description("Petition about Greek life")
 
-    def test_hidden(self):
-        petition = Petition()
-        self.assertFalse(petition.hidden)
+        self.assertEqual(p.description, "Petition about Greek life")
 
-        petition.hidden = True
-        self.assertTrue(petition.hidden)
+    def test_check_enough_sigs_nosig(self):
+        p = Petition(ID=1, expected_sig=300)
+        self.assertFalse(p.check_enough_sigs())
 
-    # don't test setters, test creation of petition
-    # ex if make petition w/o required field should fail
-    # are there any required fiels when creating petition right now?
-    # yes
+    def test_check_enough_sigs_onesig(self):
+        p = Petition(ID=2, expected_sig=300)
+        p.save()
+        u1 = User(rcs_id="linl6")
+        u1.save()
+        s1 = Signature(signer=u1)
+        s1.save()
+        p.signatures.add(s1)
+        self.assertFalse(p.check_enough_sigs())
 
-    """
-    This test fails, I think because the signatures field 
-    is not initialized on creation.
-    """
+    def test_check_enough_sigs_enoughsig(self):
+        p = Petition(ID=3, expected_sig=2)
+        p.save()
 
-    def test_check_enough_signatures(self):
-        petition = Petition(title="Save Greek Life")
-        petition.expected_sig = 300  # should be a required field
-        petition.save()
-        self.assertFalse(petition.check_enough_sigs())
+        u1 = User(rcs_id="rolleg")
+        u1.save()
+        s1 = Signature(signer=u1)
+        s1.save()
 
-    """
-    # check this, will it break bc of no initialization
+        u2 = User(rcs_id="linl6")
+        u2.save()
+        s2 = Signature(signer=u2)
+        s2.save()
+
+        p.signatures.add(s1, s2)
+        self.assertTrue(p.check_enough_sigs())
+
     def test_check_tags_notags(self):
-        petition = Petition()
-        petition.save()
-        self.assertTrue(petition.check_tags())
+        p = Petition(ID=4)
+        self.assertTrue(p.check_tags())
 
     def test_check_tags_onetag(self):
-        petition = Petition()
-        petition.save()
-        tag1 = Tag(label="Athletics")
-        tag1.save()
-        
-        petition.tags.add(tag1)
-        self.assertTrue(petition.check_tags())
+        p = Petition(ID=5, expected_sig=100)
+        p.save()
+        t1 = Tag(label="Athletics")
+        t1.save()
 
-    # make the saves better
+        p.tags.add(t1)
+        self.assertEqual(p.tags.count(), 1)
+        self.assertTrue(p.check_tags())
+
     def test_check_tags_fourtags(self):
-        petition = Petition()
-        petition.save()
-        tag1 = Tag(label="Athletics")
-        tag1.save()
-        tag2 = Tag(label="Community")
-        tag2.save()
-        tag3 = Tag(label="Facilities")
-        tag3.save()
-        tag4 = Tag(label="Traditions")
-        tag4.save()
+        p = Petition(ID=6, expected_sig=100)
+        p.save()
 
-        petition.tags.add(tag1, tag2, tag3, tag4)
-        self.assertFalse(petition.check_tags())
-    """
+        t1 = Tag(label="Athletics")
+        t1.save()
+        t2 = Tag(label="Greek")
+        t2.save()
+        t3 = Tag(label="Community")
+        t3.save()
+        t4 = Tag(label="Facilities")
+        t4.save()
+
+        p.tags.add(t1, t2, t3, t4)
+        self.assertEqual(p.tags.count(), 4)
+        self.assertFalse(p.check_tags())
 
 
 class UserModelTestCase(unittest.TestCase):
@@ -92,3 +99,72 @@ class UserModelTestCase(unittest.TestCase):
         user = User(rcs_id="linl6", name="Lucy Lin")
         user.set_initials()
         self.assertEqual("ll", user.initials)
+
+    def test_set_admin(self):
+        u = User(rcs_id="linl6", name="Lucy Lin")
+        self.assertFalse(u.admin)
+
+        u.set_admin(True)
+        self.assertTrue(u.admin)
+
+
+class ResponseModelTestCase(unittest.TestCase):
+    def test_set_senate(self):
+        r = Response()
+        self.assertFalse(r.senator_investigation)
+
+        r.set_senate(True)
+        self.assertTrue(r.senator_investigation)
+
+    def test_set_committee(self):
+        r = Response()
+        self.assertFalse(r.committee_formed)
+
+        r.set_committee(True)
+        self.assertTrue(r.committee_formed)
+
+    def test_set_resolution(self):
+        r = Response()
+        self.assertFalse(r.vote_resolution)
+
+        r.set_resolution(True)
+        self.assertTrue(r.vote_resolution)
+
+    def test_set_referendum(self):
+        r = Response()
+        self.assertFalse(r.vote_referendum)
+
+        r.set_referendum(True)
+        self.assertTrue(r.vote_referendum)
+
+    def test_set_other(self):
+        r = Response()
+        self.assertFalse(r.refer_to_other)
+
+        r.set_other(True)
+        self.assertTrue(r.refer_to_other)
+
+    def test_add_info_senate(self):
+        r = Response()
+        r.add_info_senate("More investigation info")
+        self.assertEqual(r.investigation_info, "More investigation info")
+
+    def test_add_info_committee(self):
+        r = Response()
+        r.add_info_committee("More committee info")
+        self.assertEqual(r.committee_info, "More committee info")
+
+    def test_add_info_resolution(self):
+        r = Response()
+        r.add_info_resolution("More resolution info")
+        self.assertEqual(r.resolution_info, "More resolution info")
+
+    def test_add_info_referendum(self):
+        r = Response()
+        r.add_info_referendum("More referendum info")
+        self.assertEqual(r.referendum_info, "More referendum info")
+
+    def test_add_info_other(self):
+        r = Response()
+        r.add_info_other("Other info")
+        self.assertEqual(r.refer_other_info, "Other info")
