@@ -14,23 +14,31 @@ def index(request):
 def all(request):
     return render(request, "all.html")
 
+
 def create(request):
     form = CreatePetitionForm()
     context = {"form": form}
     return render(request, "create.html", context=context)
+
 
 def petition_detail(request, pk):
     petition = Petition.objects.get(pk=pk)
     signatures = petition.signatures.all()
 
     status = "Goal not met"
-    if (petition.check_enough_sigs()):
+    if petition.check_enough_sigs():
         status = "Goal met"
-    
+
     expiration_date = petition.created_date + timezone.timedelta(days=365)
 
-    context = {"petition": petition, "signatures": signatures, "status": status, "date": expiration_date}
+    context = {
+        "petition": petition,
+        "signatures": signatures,
+        "status": status,
+        "date": expiration_date,
+    }
     return render(request, "detail.html", context=context)
+
 
 # def add_signature(request, pk, user_pk):
 #     petition = Petition.objects.get(pk=pk)
@@ -42,4 +50,3 @@ def petition_detail(request, pk):
 #     petition.save()
 
 #     return petition_detail()
-

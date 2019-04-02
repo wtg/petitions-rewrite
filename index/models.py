@@ -188,6 +188,6 @@ class Petition(models.Model):
 
         # Add tag to a petition, there can be at most three in a single petition
         # def add_tag (self):
-    
+
     def get_url(self):
-        return reverse('petition-detail', args=[str(self.ID)])
+        return reverse("petition-detail", args=[str(self.ID)])
