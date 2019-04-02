@@ -33,6 +33,9 @@
         <button class="btn dropdown-toggle" type="button" id="tagdropdown" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">Petition Tags <span style="font-size: 10px">(max of 3)</span></button>
         <div class="dropdown-menu" aria-labelledby="all-tags">
+            {% for tag in tags %}
+                <a class="dropdown-item" href="#">{{ tag.label }}</a>
+            {% endfor %}
             <a class="dropdown-item" href="#">Academics</a>
             <a class="dropdown-item" href="#">Athletics</a>
             <a class="dropdown-item" href="#">Communications</a>
@@ -62,6 +65,7 @@
             aria-label="petition-description"></textarea>
     </div>
 </div>
+
 <br>
 <!--The 'send petition' button-->
 <div class="container" role="group" aria-label="sendPetition" >
@@ -70,4 +74,5 @@
 
     </div>
 </div>
+
 {% endblock %}
