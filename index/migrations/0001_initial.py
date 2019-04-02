@@ -9,85 +9,142 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Petition',
+            name="Petition",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=200)),
-                ('description', models.CharField(max_length=4000)),
-                ('archived', models.BooleanField(default=False)),
-                ('hidden', models.BooleanField(default=False)),
-                ('created_date', models.DateTimeField(db_index=True, default=django.utils.timezone.now)),
-                ('expected_sig', models.IntegerField(default=300)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=200)),
+                ("description", models.CharField(max_length=4000)),
+                ("archived", models.BooleanField(default=False)),
+                ("hidden", models.BooleanField(default=False)),
+                (
+                    "created_date",
+                    models.DateTimeField(
+                        db_index=True, default=django.utils.timezone.now
+                    ),
+                ),
+                ("expected_sig", models.IntegerField(default=300)),
             ],
         ),
         migrations.CreateModel(
-            name='Response',
+            name="Response",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('senator_investigation', models.BooleanField(default=False)),
-                ('committee_formed', models.BooleanField(default=False)),
-                ('vote_resolution', models.BooleanField(default=False)),
-                ('vote_referendum', models.BooleanField(default=False)),
-                ('refer_to_other', models.BooleanField(default=False)),
-                ('investigation_info', models.CharField(max_length=1000)),
-                ('committee_info', models.CharField(max_length=1000)),
-                ('resolution_info', models.CharField(max_length=1000)),
-                ('referendum_info', models.CharField(max_length=1000)),
-                ('refer_other_info', models.CharField(max_length=1000)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("senator_investigation", models.BooleanField(default=False)),
+                ("committee_formed", models.BooleanField(default=False)),
+                ("vote_resolution", models.BooleanField(default=False)),
+                ("vote_referendum", models.BooleanField(default=False)),
+                ("refer_to_other", models.BooleanField(default=False)),
+                ("investigation_info", models.CharField(max_length=1000)),
+                ("committee_info", models.CharField(max_length=1000)),
+                ("resolution_info", models.CharField(max_length=1000)),
+                ("referendum_info", models.CharField(max_length=1000)),
+                ("refer_other_info", models.CharField(max_length=1000)),
             ],
         ),
         migrations.CreateModel(
-            name='Signature',
+            name="Signature",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('signed_date', models.DateTimeField(default=django.utils.timezone.now)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "signed_date",
+                    models.DateTimeField(default=django.utils.timezone.now),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Tag',
+            name="Tag",
             fields=[
-                ('label', models.CharField(max_length=15, primary_key=True, serialize=False)),
+                (
+                    "label",
+                    models.CharField(max_length=15, primary_key=True, serialize=False),
+                )
             ],
         ),
         migrations.CreateModel(
-            name='User',
+            name="User",
             fields=[
-                ('rcs_id', models.CharField(max_length=10, primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=50)),
-                ('admin', models.BooleanField(default=False)),
-                ('banned', models.BooleanField(default=False)),
-                ('initials', models.CharField(max_length=2)),
-                ('union_member', models.BooleanField(default=False)),
+                (
+                    "rcs_id",
+                    models.CharField(max_length=10, primary_key=True, serialize=False),
+                ),
+                ("name", models.CharField(max_length=50)),
+                ("admin", models.BooleanField(default=False)),
+                ("banned", models.BooleanField(default=False)),
+                ("initials", models.CharField(max_length=2)),
+                ("union_member", models.BooleanField(default=False)),
             ],
         ),
         migrations.AddField(
-            model_name='signature',
-            name='signer',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='signatures', to='index.User'),
+            model_name="signature",
+            name="signer",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="signatures",
+                to="index.User",
+            ),
         ),
         migrations.AddField(
-            model_name='petition',
-            name='author',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='petitions', to='index.User'),
+            model_name="petition",
+            name="author",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="petitions",
+                to="index.User",
+            ),
         ),
         migrations.AddField(
-            model_name='petition',
-            name='senate_response',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='petitions', to='index.Response'),
+            model_name="petition",
+            name="senate_response",
+            field=models.ForeignKey(
+                blank=True,
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="petitions",
+                to="index.Response",
+            ),
         ),
         migrations.AddField(
-            model_name='petition',
-            name='signatures',
-            field=models.ManyToManyField(blank=True, related_name='petitions', to='index.Signature'),
+            model_name="petition",
+            name="signatures",
+            field=models.ManyToManyField(
+                blank=True, related_name="petitions", to="index.Signature"
+            ),
         ),
         migrations.AddField(
-            model_name='petition',
-            name='tags',
-            field=models.ManyToManyField(blank=True, related_name='petitions', to='index.Tag'),
+            model_name="petition",
+            name="tags",
+            field=models.ManyToManyField(
+                blank=True, related_name="petitions", to="index.Tag"
+            ),
         ),
     ]
