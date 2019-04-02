@@ -48,10 +48,41 @@ body {
     max-width: 60%;
 }
 
-.header {
+.header, .info, .description, .signatures {
     margin-left: 40px;
     margin-bottom: 20px;
+    margin-top: 10px;
+
 }
+
+.detail {
+    /* text-align: center; */
+    /* margin-left: 40px; */
+    margin-top: 50px;
+    padding-left: 20px;
+}
+
+.parent {
+    display: flex;
+    /* align-items: center; */
+}
+
+.left {
+    margin-right: auto;
+    flex-grow: 1;
+    padding: 20px;
+}
+
+.right {
+    margin-left: auto;
+    min-width: 30%;
+    padding: 20px;
+}
+
+.info {
+    /* max-width: 50%; */
+}
+
 .card-title a {
     color: #ed1c24;
 }
@@ -90,4 +121,9 @@ body {
 
 .card {
     min-height: 175px;
+}
+
+#sign-btn {
+    background-color: #ed1c24;
+    color: white;
 }

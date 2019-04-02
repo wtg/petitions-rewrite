@@ -3,9 +3,54 @@
 
 {% block content %}
 <div class="container">
-    <div class="header"><h4>{{ petition.title }}</h4></div>    
+    <div class="header detail">
+        <h4 class="pontiac">{{ petition.title }}</h4>
+        <h5><strong>Created by {{ petition.author.rcs_id }}</strong></h5>
+    </div>    
     
-    <p>{{ petition.description }}</p>
+    <div class="parent">
+        <div class="left">
+            <div class="description">
+                <h5>Description</h5>
+                <p>{{ petition.description }}</p>
+            </div>
+        
+            <div class="signatures">
+                <h5>Signed by</h5>
+                {% for signature in signatures %}
+                    <p>signature.signer.initials</p>
+                {% empty %}
+                    <p>No signatures yet</p>
+                {% endfor %}
+            </div>
+        </div>   
+
+        <div class="right">
+            <div class="info">
+                <h6>Take action</h6>
+                <button class="btn" href="#" id="sign-btn">Sign</button>
+            </div>
+
+            <div class="info">
+                <h6>{{signatures.count}} / {{petition.expected_sig}} Signatures</h6>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" aria-valuenow={{signatures.count}} aria-valuemin="0" aria-valuemax={{petition.expected_sig}}></div>
+                </div>
+            </div>
+
+            <div class="info">
+                <h6>Status</h6>
+                <h5>{{status}}</h5>
+            </div>
+
+            <div class="info">
+                <h6>Expires</h6>
+                <h5> {{ date|date:'M d, Y' }} </h5>
+            </div>
+    </div>
+
+    
+    
     
 </div>
 {% endblock %}
