@@ -31,30 +31,29 @@
     <!--All tags from the original website. Users are only allowed to pick 3 tags (need to create an algorithm) to stop the user after they've chosen 3-->
     <div class="dropdown mb-3">
         <button class="btn dropdown-toggle" type="button" id="tagdropdown" data-toggle="dropdown" aria-haspopup="true"
-            aria-expanded="false">Petition Tags <span style="font-size: 10px">(max of 3)</span></button>
+            aria-expanded="false">Petition Tag #1 <span style="font-size: 10px">(max of 3)</span></button>
         <div class="dropdown-menu" aria-labelledby="all-tags">
             {% for tag in tags %}
                 <a class="dropdown-item" href="#">{{ tag.label }}</a>
             {% endfor %}
-            <a class="dropdown-item" href="#">Academics</a>
-            <a class="dropdown-item" href="#">Athletics</a>
-            <a class="dropdown-item" href="#">Communications</a>
-            <a class="dropdown-item" href="#">Community</a>
-            <a class="dropdown-item" href="#">Dining Services</a>
-            <a class="dropdown-item" href="#">Extracurriculars</a>
-            <a class="dropdown-item" href="#">Facilities</a>
-            <a class="dropdown-item" href="#">Greek Life</a>
-            <a class="dropdown-item" href="#">Health Services</a>
-            <a class="dropdown-item" href="#">Rensselaer Union</a>
-            <a class="dropdown-item" href="#">Research</a>
-            <a class="dropdown-item" href="#">Residence Life</a>
-            <a class="dropdown-item" href="#">Safety</a>
-            <a class="dropdown-item" href="#">Student Government</a>
-            <a class="dropdown-item" href="#">Student Life</a>
-            <a class="dropdown-item" href="#">Student Rights</a>
-            <a class="dropdown-item" href="#">Technology Services</a>
-            <a class="dropdown-item" href="#">Tradition</a>
-            <a class="dropdown-item" href="#">Transportation</a>
+        </div>
+    </div>
+    <div class="dropdown mb-3">
+        <button class="btn dropdown-toggle" type="button" id="tagdropdown" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">Petition Tag #2 <span style="font-size: 10px">(max of 3)</span></button>
+        <div class="dropdown-menu" aria-labelledby="all-tags">
+            {% for tag in tags %}
+                <a class="dropdown-item" href="#">{{ tag.label }}</a>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="dropdown mb-3">
+        <button class="btn dropdown-toggle" type="button" id="tagdropdown" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">Petition Tag #3 <span style="font-size: 10px">(max of 3)</span></button>
+        <div class="dropdown-menu" aria-labelledby="all-tags">
+            {% for tag in tags %}
+                <a class="dropdown-item" href="#">{{ tag.label }}</a>
+            {% endfor %}
         </div>
     </div>
     <div class="input-group">
