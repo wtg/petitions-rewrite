@@ -19,8 +19,10 @@ def create(request):
     context = {"form": form}
     return render(request, "create.html", context=context)
 
+
 def about(request):
     return render(request, "about.html")
 
-'''def moderation(request):
-    return render(request, "about.html/#moderation")'''
+
+"""def moderation(request):
+    return render(request, "about.html/#moderation")"""
