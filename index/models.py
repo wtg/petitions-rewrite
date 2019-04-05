@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.conf import settings
 
 # Creates a tag, there can be at most three in a single petition
 class Tag(models.Model):
@@ -129,7 +130,7 @@ class Petition(models.Model):
         db_index=True, default=timezone.now
     )  # Files the date created
     expected_sig = models.IntegerField(
-        default=300
+        default=settings.DEFAULT_EXPECTED_SIGS
     )  # The expected signature to move to the next step
 
     author = models.ForeignKey(
