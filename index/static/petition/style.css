@@ -12,8 +12,12 @@ body {
     width: 100%;
 }
 
-.nav-link {
-    color: #000000;
+.nav-link, .btn-link {
+    color: gray;
+}
+
+.nav-item {
+    padding-left: 10px;
 }
 
 .wtg-logo {
@@ -91,7 +95,7 @@ body {
     color: #505050;
 }
 
-.link, .link:hover {
+.link, .link:hover, .btn-link:hover {
     color: gray;
 }
 
@@ -126,4 +130,27 @@ body {
 #sign-btn {
     background-color: #ed1c24;
     color: white;
+}
+
+#sign-btn:hover {
+    background-color: #ebebeb;
+    border-color: #ed1c24;
+    color: #ed1c24;
+}
+
+.flex-sig-container {
+    display: flex;
+    flex-flow: row wrap;
+    list-style-type: none;
+    padding-left: 0px;
+}
+
+.flex-sig {
+    padding: 5px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.progress-bar {
+    background-color: #ed1c24 !important;
 }

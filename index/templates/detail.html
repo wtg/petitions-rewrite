@@ -17,24 +17,26 @@
         
             <div class="signatures">
                 <h5>Signed by</h5>
-                {% for signature in signatures %}
-                    <p>signature.signer.initials</p>
-                {% empty %}
-                    <p>No signatures yet</p>
-                {% endfor %}
+                <ul class="flex-sig-container">
+                    {% for signature in signatures %}
+                    <li class="flex-sig">{{ signature.get_initials }}</li>
+                    {% empty %}
+                    <li class="flex-sig">No signatures yet</li>
+                    {% endfor %}
+                </ul>
             </div>
         </div>   
 
         <div class="right">
             <div class="info">
                 <h6>Take action</h6>
-                <button class="btn" href="#" id="sign-btn">Sign</button>
+                <a class="sign-link" href="{% load sign_tags %} {% get_sign_url petition user %}"><button class="btn" id="sign-btn">Sign</button></a>
             </div>
 
             <div class="info">
                 <h6>{{signatures.count}} / {{petition.expected_sig}} Signatures</h6>
                 <div class="progress">
-                    <div class="progress-bar" role="progressbar" aria-valuenow={{signatures.count}} aria-valuemin="0" aria-valuemax={{petition.expected_sig}}></div>
+                    <div class="progress-bar" role="progressbar" style="width: {{progress_percent}}%;" aria-valuenow="{{signatures.count}}" aria-valuemin="0" aria-valuemax="{{petition.expected_sig}}"></div>
                 </div>
             </div>
 
@@ -48,9 +50,5 @@
                 <h5> {{ date|date:'M d, Y' }} </h5>
             </div>
     </div>
-
-    
-    
-    
 </div>
 {% endblock %}
