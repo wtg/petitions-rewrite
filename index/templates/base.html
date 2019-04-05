@@ -3,8 +3,12 @@
     <head>
         {% block head %}
         <title>{% block title %}{% endblock %}</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>   
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"> 
+        <meta charset="utf-8">
         {% load static %}
         <link rel="shortcut icon" href="{%  static 'petition/favicon.png' %}">
         <link rel="stylesheet" href="{% static 'petition/style.css' %}">
@@ -31,7 +35,7 @@
                 </ul>
                 <ul class="navbar-nav">
                   <li class="nav-item">
-                      <a class="nav-link" href="">About</a>
+                      <a class="nav-link" href="{% url 'about' %}">About</a>
                   </li>
                   <li class="nav-item">
                       <button class="btn" href="">Login</button>
