@@ -15,17 +15,7 @@
     
     <ul class="flex-container">  
         {% for petition in petitions %}
-            <li class="flex-item">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title"><a href="#">{{ petition.title }}</a></h5>
-                        <h6 class="card-subtitle mb-2">{{ petition.signatures.count }} signatures</h6>
-                        {% for tag in petition.tags.all %}
-                            <a href="#" class="link">{{ tag }}</a><br>
-                        {% endfor %}
-                    </div>
-                </div>
-            </li>
+            {% include "card.html" with petition=petition %}
         {% empty %}
             <p>No petitions</p>
         {% endfor %} 
