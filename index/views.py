@@ -16,7 +16,7 @@ def all(request):
 
 def create(request):
     form = CreatePetitionForm()
-    tags = Tag.objects.all().order_by("-label")
+    tags = Tag.objects.all().order_by("-label").reverse()
     context = {"form": form, "tags": tags}
 
     return render(request, "create-petition.html", context=context)
