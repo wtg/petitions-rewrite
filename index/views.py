@@ -1,8 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic
 from django.utils import timezone
 from .forms import CreatePetitionForm
-from .models import Petition, Tag
+from .models import Petition, Tag, User, Signature
 
 
 def index(request):
@@ -30,23 +30,28 @@ def petition_detail(request, pk):
         status = "Goal met"
 
     expiration_date = petition.created_date + timezone.timedelta(days=365)
-
+    progress_percent = int((petition.signatures.count() / petition.expected_sig) * 100)
     context = {
         "petition": petition,
         "signatures": signatures,
         "status": status,
         "date": expiration_date,
+        "progress_percent": progress_percent,
     }
     return render(request, "detail.html", context=context)
 
 
-# def add_signature(request, pk, user_pk):
-#     petition = Petition.objects.get(pk=pk)
-#     user = User.objects.get(pk=user_pk)
-#     new_signature = Signature.create(user)
-#     new_signature.save()
+def add_signature(request, pk, pk_user):
 
-#     petition.signatures.add(new_signature)
-#     petition.save()
+    petition = Petition.objects.get(pk=pk)
 
-#     return petition_detail()
+    if petition.signatures.filter(pk=pk_user).exists():
+        return redirect("/petition/" + str(pk))
+
+    user = User.objects.get(pk=pk_user)
+    new_signature = Signature(signer=user)
+    new_signature.save()
+    petition.signatures.add(new_signature)
+    petition.save()
+
+    return redirect("/petition/" + str(pk))
