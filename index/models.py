@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 # Creates a tag, there can be at most three in a single petition
 class Tag(models.Model):
@@ -13,34 +14,6 @@ class Tag(models.Model):
     def __str__(self):
         return self.label
 
-
-# Creates a user based on their name, RCS ID and admin status
-class User(models.Model):
-    rcs_id = models.CharField(max_length=10, primary_key=True)  # RCS ID
-    name = models.CharField(max_length=50)  # The author name
-    admin = models.BooleanField(default=False)  # Is admin?
-    # Is the person banned?-- not very likely
-    banned = models.BooleanField(default=False)
-    initials = models.CharField(max_length=2)  # Their initials
-    union_member = models.BooleanField(default=False)  # Is member of the union?
-
-    # Returns their name
-    def __unicode__(self):
-        return self.rcs_id
-
-    # Returns the initials of the User using the RCS ID, first strips
-    # it of the digits at the end and then
-    def set_initials(self):
-        full_name = self.rcs_id
-        name_modified = "".join([i for i in full_name if not i.isdigit()])
-        self.initials = name_modified[-1] + name_modified[0]
-
-    # Changes the bool value that dictates whether or not a character
-    # is a admin
-    def set_admin(self, bool_val):
-        self.admin = bool_val
-
-
 # Logs a signature, there can be many in a single petition
 class Signature(models.Model):
     # The person trying to sign the petition
@@ -52,6 +25,11 @@ class Signature(models.Model):
     # Returns the signer when asked for the initials
     def __unicode__(self):
         return self.signer
+
+    def get_initials(self):
+        full_name = self.signer.get_username()
+        name_modified = "".join([i for i in full_name if not i.isdigit()])
+        return name_modified[-1] + name_modified[0]
 
 
 # Creates a response based on whether the senate is investigating the topic of the Petition
@@ -191,3 +169,8 @@ class Petition(models.Model):
 
     def get_url(self):
         return reverse("petition-detail", args=[str(self.ID)])
+
+    # register = template.Library()
+    # @register.simple_tag
+    # def get_sign_url(self, user):
+    #     return reverse("sign", args=[str(self.ID), str(user.username)])
