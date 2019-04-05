@@ -35,7 +35,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_cas_ng",
     "index",
+    
 ]
 
 MIDDLEWARE = [
@@ -46,8 +48,16 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_cas_ng.middleware.CASMiddleware",
 ]
 
+AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'petitions.backends.CASBackend',
+]
+
+CAS_SERVER_URL = 'https://cas-auth.rpi.edu/cas/'
+CAS_REDIRECT_URL = 'http://localhost:8000/'
 ROOT_URLCONF = "petitions.urls"
 
 TEMPLATES = [
