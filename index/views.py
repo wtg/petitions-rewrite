@@ -11,7 +11,9 @@ def index(request):
 
 
 def all(request):
-    return render(request, "all-petitions.html")
+    petitions = Petition.objects.all()
+    context = {"petitions": petitions}
+    return render(request, "all-petitions.html", context=context)
 
 
 def create(request):
