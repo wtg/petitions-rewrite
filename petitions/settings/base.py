@@ -23,6 +23,13 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
+# Represents the default value of the expected signatures field for a petition.
+# Defaults to 300.
+DEFAULT_EXPECTED_SIGS = os.environ.get("DEFAULT_EXPECTED_SIGS")
+
+if DEFAULT_EXPECTED_SIGS == None:
+    DEFAULT_EXPECTED_SIGS = 300
+
 ALLOWED_HOSTS = []
 
 

@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.conf import settings
 
 # Creates a tag, there can be at most three in a single petition
 class Tag(models.Model):
@@ -122,7 +123,6 @@ class Response(models.Model):
 class Petition(models.Model):
     title = models.CharField(max_length=200)  # Title of petition
     description = models.CharField(max_length=4000)  # The paragraph description
-    ID = models.IntegerField(primary_key=True)
     archived = models.BooleanField(default=False)
     hidden = models.BooleanField(default=False)
 
@@ -130,7 +130,7 @@ class Petition(models.Model):
         db_index=True, default=timezone.now
     )  # Files the date created
     expected_sig = models.IntegerField(
-        300
+        default=settings.DEFAULT_EXPECTED_SIGS
     )  # The expected signature to move to the next step
 
     author = models.ForeignKey(
