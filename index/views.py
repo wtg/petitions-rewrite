@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.views import generic
 from .forms import CreatePetitionForm
 from .models import Petition, Tag
+from django.contrib.auth.models import User
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def index(request):
@@ -9,9 +11,20 @@ def index(request):
     context = {"petitions": petitions}
     return render(request, "index.html", context=context)
 
-
+#request information for the view_all petitions page
 def all(request):
-    return render(request, "all-petitions.html")
+    petitions = Petition.objects.all()
+    ''' paginator separates the content of page 1 with the content of page 2, so on'''
+    page = request.GET.get('page', 1)
+    #show 18 petitions objects per page
+    paginator = Paginator(petitions, 18)
+    try:
+        users = paginator.page(page)
+    except PageNotAnInteger:
+        users = paginator.page(1)
+    except EmptyPage:
+        users = paginator.page(paginator.num_pages)
+    return render(request, "all-petitions.html", {'petitions': users})
 
 
 def create(request):
