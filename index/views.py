@@ -8,6 +8,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def index(request):
     petitions = Petition.objects.all().order_by("-created_date")[:6]
+   # p = Paginator(petitions, 3)
     context = {"petitions": petitions}
     return render(request, "index.html", context=context)
 
