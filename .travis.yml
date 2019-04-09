@@ -25,4 +25,4 @@ before_script:
   - pipenv run black . --check
 
 script:
-  - pipenv run python manage.py test
+  - pipenv run python manage.py test index
