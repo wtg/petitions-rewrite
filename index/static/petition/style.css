@@ -91,3 +91,17 @@ body {
 .card {
     min-height: 175px;
 }
+
+.headingbar{
+    font-family: 'Pontiac';
+    background-color: red;
+    text-align: center;
+    border-radius: 5px;
+    /**box-shadow: 0px 2.5px rgba(255, 0, 0, 0.212);**/
+}
+
+/**about.html-only tags**/
+.rule{
+    background-color: rgb(255, 250, 245);
+    font-family: 'Pontiac'
+}

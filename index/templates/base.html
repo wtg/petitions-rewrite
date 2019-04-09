@@ -3,10 +3,14 @@
     <head>
         {% block head %}
         <title>{% block title %}{% endblock %}</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">        
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>   
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet"> 
+        <meta charset="utf-8">
         {% load static %}
-        <link rel="shortcut icon" href="{%  static 'petition/favicon.png' %}">
+        <link rel="shortcut icon" href="{% static 'petition/favicon.png' %}">
         <link rel="stylesheet" href="{% static 'petition/style.css' %}">
         {% endblock %}
     </head>
@@ -31,7 +35,7 @@
                 </ul>
                 <ul class="navbar-nav">
                   <li class="nav-item">
-                      <a class="nav-link" href="">About</a>
+                      <a class="nav-link" href="{% url 'about' %}">About</a>
                   </li>
                   <li class="nav-item">
                       <button class="btn" href="">Login</button>
@@ -48,14 +52,13 @@
         <footer class="footer">
             <div class="container">
                 <span class="text-muted">
-                    <p>This is an <a href="https://github.com/wtg">open source</a> project made and maintained by the Web Technologies Group of the Rensselaer Union Student Senate</p></span>
+                    <p>This is an <a href="https://github.com/wtg">open source</a> project made and maintained by the Web Technologies Group of the Rensselaer Union Student Senate.</p></span>
                 <a href="https://webtech.union.rpi.edu/">
                     <img class="wtg-logo" src="{% static 'petition/wtg.svg' %}">
                 </a>
             </div>
         </footer>
     
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>    
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     </body>
 </html>
