@@ -18,7 +18,7 @@ def all(request):
     ''' paginator separates the content of page 1 with the content of page 2, so on'''
     page = request.GET.get('page', 1)
     #show 18 petitions objects per page
-    paginator = Paginator(petitions, 18)
+    paginator = Paginator(petitions, 6)
     try:
         users = paginator.page(page)
     except PageNotAnInteger:
@@ -31,7 +31,7 @@ def all(request):
 def create(request):
     form = CreatePetitionForm()
     context = {"form": form}
-    return render(request, "create.html", context=context)
+    return render(request, "create-petition.html", context=context)
 
 def about(request):
     return render(request, "about.html")
