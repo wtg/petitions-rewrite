@@ -1,8 +1,8 @@
-import unittest
+from django.test import TestCase
 from index.models import Petition, Tag, Response, Signature
 
 
-class PetitionModelTestCase(unittest.TestCase):
+class PetitionModelTestCase(TestCase):
     def test_title(self):
         petition = Petition(title="Save Greek Life")
         self.assertEqual("Save Greek Life", petition.title)
