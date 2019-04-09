@@ -14,6 +14,7 @@ class Tag(models.Model):
     def __str__(self):
         return self.label
 
+
 # Logs a signature, there can be many in a single petition
 class Signature(models.Model):
     # The person trying to sign the petition
