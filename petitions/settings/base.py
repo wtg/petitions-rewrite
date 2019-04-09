@@ -52,11 +52,11 @@ MIDDLEWARE = [
 
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
-    "petitions.backends.CASBackend",
+    "petitions.backends.StudentCASBackend",
 ]
 
 CAS_SERVER_URL = "https://cas-auth.rpi.edu/cas/"
-CAS_REDIRECT_URL = "http://localhost:8000/"
+
 ROOT_URLCONF = "petitions.urls"
 
 TEMPLATES = [
