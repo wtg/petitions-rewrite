@@ -42,13 +42,9 @@ def petition_detail(request, pk):
 
 
 def add_signature(request, pk, pk_user):
-
     petition = Petition.objects.get(pk=pk)
-
-    if petition.signatures.filter(pk=pk_user).exists():
-        return redirect("/petition/" + str(pk))
-
     user = User.objects.get(pk=pk_user)
+
     new_signature = Signature(signer=user)
     new_signature.save()
     petition.signatures.add(new_signature)

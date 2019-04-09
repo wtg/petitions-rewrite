@@ -30,7 +30,20 @@
         <div class="right">
             <div class="info">
                 <h6>Take action</h6>
-                <a class="sign-link" href="{% load sign_tags %} {% get_sign_url petition user %}"><button class="btn" id="sign-btn">Sign</button></a>
+                
+                {% if user.is_authenticated %}
+                    
+                    {% load sign_tags %}
+                    {% user_signed petition user as signed %}
+                    {% if signed %}
+                        <button class="btn" id="signed" disabled>Signed</button>
+                    {% else %}
+                        <a class="sign-link" href="{% get_sign_url petition user %}"><button class="btn" id="sign-btn">Sign</button></a>
+                    {% endif %}
+
+                {% else %}
+                    <button class="btn" id="signed" disabled>Login to sign!</button>
+                {% endif %}
             </div>
 
             <div class="info">
