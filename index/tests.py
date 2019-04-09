@@ -1,5 +1,5 @@
 import unittest
-from .models import Petition, Tag, User, Response, Signature
+from index.models import Petition, Tag, Response, Signature
 
 
 class PetitionModelTestCase(unittest.TestCase):
@@ -14,10 +14,3 @@ class PetitionModelTestCase(unittest.TestCase):
     # def test_check_enough_signatures(self):
     #     petition = Petition(title="Save Greek Life")
     #     self.assertFalse(petition.check_enough_sigs())
-
-
-class UserModelTestCase(unittest.TestCase):
-    def test_user_initials(self):
-        user = User(rcs_id="rolleg", name="Grace Roller")
-        user.set_initials()
-        self.assertEqual("gr", user.initials)
