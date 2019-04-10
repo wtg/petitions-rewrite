@@ -39,15 +39,3 @@ def petition_detail(request, pk):
         "progress_percent": progress_percent,
     }
     return render(request, "detail.html", context=context)
-
-
-def add_signature(request, pk, pk_user):
-    petition = Petition.objects.get(pk=pk)
-    user = User.objects.get(pk=pk_user)
-
-    new_signature = Signature(signer=user)
-    new_signature.save()
-    petition.signatures.add(new_signature)
-    petition.save()
-
-    return redirect("/petition/" + str(pk))
