@@ -106,72 +106,59 @@ class Petition(models.Model):
     archived = models.BooleanField(default=False)
     hidden = models.BooleanField(default=False)
 
-    created_date = models.DateTimeField(
-        db_index=True, default=timezone.now
-    )  # Files the date created
-    expected_sig = models.IntegerField(
-        300
-    )  # The expected signature to move to the next step
-
+    # Files the date created
+    created_date = models.DateTimeField(db_index=True, default=timezone.now)
+    # The expected signature to move to the next step
+    expected_sig = models.IntegerField(300)
+    # The author of the petition
     author = models.ForeignKey(
         User, on_delete=models.CASCADE, related_name="petitions", blank=True, null=True
-    )  # The author of the petition
-    tags = models.ManyToManyField(
-        Tag, related_name="petitions", blank=True
-    )  # The tags, probably a max of 3
-    signatures = models.ManyToManyField(
-        Signature, related_name="petitions", blank=True
-    )  # The signature
-
+    )
+    # The tags, probably a max of 3
+    tags = models.ManyToManyField(Tag, related_name="petitions", blank=True)
+    # The signature
+    signatures = models.ManyToManyField(Signature, related_name="petitions", blank=True)
+    # If the senate has responded , their answer
     senate_response = models.ForeignKey(
         Response,
         on_delete=models.CASCADE,
         related_name="petitions",
         blank=True,
         null=True,
-    )  # If the senate has responded , their answer
+    )
 
     # Returns title when asked for the item
     def __unicode__(self):
         return self.title
 
-        # Sets the hidden variable as true if we don't want it to
-        # Be displayed in the main site
-
+    # Sets the hidden variable as true if we don't want it to
+    # Be displayed in the main site
     def set_hidden(self, bool_val):
         self.hidden = bool_val
 
-        # If the petition isn't active, we can set the archived variable as true
-
+    # If the petition isn't active, we can set the archived variable as true
     def set_archived(self, bool_val):
         self.archived = bool_val
 
-        # Adds a description to the basic petitions model, with a max length
-        # of 4000 words
-
+    # Adds a description to the basic petitions model, with a max length
+    # of 4000 words
     def add_description(self, descript):
         self.description = descript
         return True
-        # Returns true if we have enough signatures on the petition
 
+    # Returns true if we have enough signatures on the petition
     def check_enough_sigs(self):
         if self.signatures.count() >= self.expected_sig:
             return True
         return False
-        # Makes sure the we have less than three tags in the model
 
+    # Makes sure the we have less than three tags in the model
     def check_tags(self):
         if self.tags.count() > 3:
             return False
         return True
 
-        # Add tag to a petition, there can be at most three in a single petition
-        # def add_tag (self):
-
+    # Add tag to a petition, there can be at most three in a single petition
+    # def add_tag (self):
     def get_url(self):
         return reverse("petition-detail", args=[str(self.ID)])
-
-    # register = template.Library()
-    # @register.simple_tag
-    # def get_sign_url(self, user):
-    #     return reverse("sign", args=[str(self.ID), str(user.username)])
