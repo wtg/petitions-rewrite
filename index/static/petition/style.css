@@ -60,15 +60,12 @@ body {
 }
 
 .detail {
-    /* text-align: center; */
-    /* margin-left: 40px; */
     margin-top: 50px;
     padding-left: 20px;
 }
 
 .parent {
     display: flex;
-    /* align-items: center; */
 }
 
 .left {
