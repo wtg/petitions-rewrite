@@ -31,19 +31,23 @@
             <div class="info">
                 <h6>Take action</h6>
                 
-                {% if user.is_authenticated %}
-                    
-                    {% load user_signed from sign_tags %}
-                    {% user_signed petition user as signed %}
-                    {% if signed %}
-                        <button class="btn" id="signed" disabled>Signed</button>
-                    {% else %}
-                        <a class="sign-link" href="{% load add_signature from sign_tags %}{% add_signature petition user %}"><button class="btn" id="sign-btn">Sign</button></a>
-                    {% endif %}
+                <form method="POST">{% csrf_token %}
+                    {% if user.is_authenticated %}
+                        
+                        {% load user_signed from sign_tags %}
+                        {% user_signed petition user as signed %}
+                        {% if signed %}
+                            <input type="submit" class="btn" id="signed" value="Signed" disabled>
+                        {% else %}
+                            
+                            <input type="hidden" name="pk" value="{{petition.pk}}">
+                            <input type="submit" formaction="{% url 'sign' %}" class="btn" id="sign-btn" name="sign_btn" value="Sign">
+                        {% endif %}
 
-                {% else %}
-                    <button class="btn" id="signed" disabled>Login to sign!</button>
-                {% endif %}
+                    {% else %}
+                        <input type="submit" class="btn" id="signed" value="Login to sign" disabled>
+                    {% endif %}
+                </form>
             </div>
 
             <div class="info">
