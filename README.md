@@ -20,7 +20,9 @@ Check the [Wiki](https://github.com/wtg/petitions-rewrite/wiki) for Django refer
     pipenv install --python <python_version>
     ```
 
-5. Activate the virtual environment ```pipenv shell```
+5. Activate the virtual environment ```pipenv shell```.
+
+    Then run ```pipenv sync``` to install all necessary dependencies.
 
 6. Set a secret key environment variable 
     ```
