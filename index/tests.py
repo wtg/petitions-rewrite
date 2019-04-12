@@ -1,10 +1,10 @@
-import unittest
+from django.test import TestCase
 from index.models import Petition, Tag, User, Response, Signature
 
 # check code coverage
 
 
-class PetitionModelTestCase(unittest.TestCase):
+class PetitionModelTestCase(TestCase):
     def test_set_hidden(self):
         p = Petition()
         self.assertFalse(p.hidden)
@@ -88,7 +88,7 @@ class PetitionModelTestCase(unittest.TestCase):
         self.assertFalse(p.check_tags())
 
 
-class UserModelTestCase(unittest.TestCase):
+class UserModelTestCase(TestCase):
     def test_user_initials_alpha(self):
         user = User(rcs_id="rolleg", name="Grace Roller")
         user.set_initials()
@@ -108,7 +108,7 @@ class UserModelTestCase(unittest.TestCase):
         self.assertTrue(u.admin)
 
 
-class ResponseModelTestCase(unittest.TestCase):
+class ResponseModelTestCase(TestCase):
     def test_set_senate(self):
         r = Response()
         self.assertFalse(r.senator_investigation)
