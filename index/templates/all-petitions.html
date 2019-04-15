@@ -4,7 +4,7 @@
 {% block content %}
 
 <div class="container">
-    <h3 class="text-dark headingbar pontiac">All Petitions</h3>
+    <h3 class="text-dark text-center pontiac">All Petitions</h3>
     <div class="row">
         <div class="col-sm-5">
             <div class="checkbox">
@@ -45,9 +45,9 @@
                 <h6 class="card-subtitle mb-2">{{ petition.signatures.count }} signatures</h6>
                     {% for tag in petition.tags.all %}
                         <a href="#" class="link">{{ tag }}</a><br>
+                    {% endfor %}
             </div>
         </li>
-        {% endfor %}
         <!--If there are no petitions, display this message-->
         {% empty %}
             <p>No petitions yet. Stay tuned!</p>
