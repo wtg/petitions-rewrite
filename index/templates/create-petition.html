@@ -74,10 +74,17 @@
 <!--The 'send petition' button-->
 <div class="container" role="group" aria-label="sendPetition" >
     <div class="text-center">
-        <button type="button" class="btn btn-primary btn-danger">Create Petition</button>
+        <button type="button" class="btn btn-primary">Create Petition</button>
 
     </div>
 </div>
 
+<form action="{% url 'post_create' %}" method="POST" > 
+    {% csrf_token %}
+    <table>
+        {{ form.as_table }}
+    </table>
+    <input type="submit" value="Submit">
+</form>
 
 {% endblock %}

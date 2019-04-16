@@ -129,8 +129,7 @@ class Petition(models.Model):
     created_date = models.DateTimeField(
         db_index=True, default=timezone.now
     )  # Files the date created
-    expected_sig = models.IntegerField(
-        300
+    expected_sig = models.IntegerField(default=250
     )  # The expected signature to move to the next step
 
     author = models.ForeignKey(
