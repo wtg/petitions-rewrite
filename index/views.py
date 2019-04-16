@@ -26,6 +26,7 @@ def create(request):
     context = {"form": form}
     return render(request, "create.html", context=context)
 
+
 def petition_detail(request, pk):
     petition = Petition.objects.get(pk=pk)
 
@@ -37,7 +38,7 @@ def petition_detail(request, pk):
     initials = []
     for user in signatures:
         initials.append(user.first_name[0] + user.last_name[0])
-        
+
     status = "Goal not met"
     if petition.check_enough_sigs():
         status = "Goal met"

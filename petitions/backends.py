@@ -4,7 +4,7 @@ import requests
 import os
 
 
-class StudentCASBackend(CASBackend):    
+class StudentCASBackend(CASBackend):
     def user_can_authenticate(self, user):
         url = (
             "https://webtech.union.rpi.edu/services/identity/valid/"
@@ -26,6 +26,6 @@ class StudentCASBackend(CASBackend):
         if settings.DEBUG == True:
             user.is_staff = True
             user.is_superuser = True
-        
+
         user.save()
         return True

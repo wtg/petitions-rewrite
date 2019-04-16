@@ -14,6 +14,7 @@ class Tag(models.Model):
     def __str__(self):
         return self.label
 
+
 # Creates a response based on whether the senate is investigating the topic of the Petition
 class Response(models.Model):
     senator_investigation = models.BooleanField(default=False)
@@ -98,7 +99,9 @@ class Petition(models.Model):
     # The tags, probably a max of 3
     tags = models.ManyToManyField(Tag, related_name="tags", blank=True)
     # The signature
-    signatures = models.ManyToManyField(User, through="Signature", related_name="petition_signatures", blank=True)
+    signatures = models.ManyToManyField(
+        User, through="Signature", related_name="petition_signatures", blank=True
+    )
     # If the senate has responded , their answer
     senate_response = models.ForeignKey(
         Response,
@@ -144,12 +147,11 @@ class Petition(models.Model):
     def get_url(self):
         return reverse("petition-detail", args=[str(self.ID)])
 
+
 # Logs a signature, there can be many in a single petition
 class Signature(models.Model):
     # The person trying to sign the petition
-    signer = models.ForeignKey(
-        User, on_delete=models.CASCADE
-    )
+    signer = models.ForeignKey(User, on_delete=models.CASCADE)
     petition = models.ForeignKey(Petition, on_delete=models.CASCADE)
     signed_date = models.DateTimeField(default=timezone.now)  # When they signed
 
