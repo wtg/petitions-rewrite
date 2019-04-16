@@ -65,7 +65,7 @@ class CreatePetitionView(View):
             "form": form, "tags": tags
         }
 
-        return render(request, "create-petition.html", context=context)
+        return render(request, "create.html", context=context)
     
     def post(self,request):
         if request.method != "POST":
