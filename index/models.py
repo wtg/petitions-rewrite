@@ -14,25 +14,6 @@ class Tag(models.Model):
     def __str__(self):
         return self.label
 
-
-# Logs a signature, there can be many in a single petition
-class Signature(models.Model):
-    # The person trying to sign the petition
-    signer = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="signatures"
-    )
-    signed_date = models.DateTimeField(default=timezone.now)  # When they signed
-
-    # Returns the signer when asked for the initials
-    def __unicode__(self):
-        return self.signer
-
-    def get_initials(self):
-        full_name = self.signer.get_username()
-        name_modified = "".join([i for i in full_name if not i.isdigit()])
-        return name_modified[-1] + name_modified[0]
-
-
 # Creates a response based on whether the senate is investigating the topic of the Petition
 class Response(models.Model):
     senator_investigation = models.BooleanField(default=False)
@@ -112,17 +93,17 @@ class Petition(models.Model):
     expected_sig = models.IntegerField(300)
     # The author of the petition
     author = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="petitions", blank=True, null=True
+        User, on_delete=models.CASCADE, related_name="author", blank=True, null=True
     )
     # The tags, probably a max of 3
-    tags = models.ManyToManyField(Tag, related_name="petitions", blank=True)
+    tags = models.ManyToManyField(Tag, related_name="tags", blank=True)
     # The signature
-    signatures = models.ManyToManyField(Signature, related_name="petitions", blank=True)
+    signatures = models.ManyToManyField(User, through="Signature", related_name="petition_signatures", blank=True)
     # If the senate has responded , their answer
     senate_response = models.ForeignKey(
         Response,
         on_delete=models.CASCADE,
-        related_name="petitions",
+        related_name="petition_response",
         blank=True,
         null=True,
     )
@@ -162,3 +143,16 @@ class Petition(models.Model):
     # def add_tag (self):
     def get_url(self):
         return reverse("petition-detail", args=[str(self.ID)])
+
+# Logs a signature, there can be many in a single petition
+class Signature(models.Model):
+    # The person trying to sign the petition
+    signer = models.ForeignKey(
+        User, on_delete=models.CASCADE
+    )
+    petition = models.ForeignKey(Petition, on_delete=models.CASCADE)
+    signed_date = models.DateTimeField(default=timezone.now)  # When they signed
+
+    # Returns the signer when asked for the initials
+    def __unicode__(self):
+        return self.signer
