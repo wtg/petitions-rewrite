@@ -7,7 +7,7 @@ class TagAdmin(admin.ModelAdmin):
 
 
 class PetitionAdmin(admin.ModelAdmin):
-    pass
+    exclude = ('created_date','signatures')
 
 
 admin.site.register(Tag, TagAdmin)
