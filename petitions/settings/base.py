@@ -23,6 +23,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
+if "IDENTITY_KEY" not in os.environ:
+    sys.stderr.write("Error: The environment variable IDENTITY_KEY must be set.\n")
+    exit(1)
+
+IDENTITY_KEY = os.environ.get("IDENTITY_KEY")
+
 ALLOWED_HOSTS = []
 
 
