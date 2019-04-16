@@ -79,7 +79,7 @@
     </div>
 </div>
 
-<form action="{% url 'post_create' %}" method="POST" > 
+<form action="{% url 'create' %}" method="POST" > 
     {% csrf_token %}
     <table>
         {{ form.as_table }}

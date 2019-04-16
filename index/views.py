@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.views import generic
 from .forms import CreatePetitionForm
 from .models import Petition, Tag, Signature
+from django.views import View
 from django.http import (
     HttpResponse,
     HttpResponseRedirect,
@@ -19,8 +20,7 @@ def index(request):
 def all(request):
     return render(request, "all.html")
 
-
-def get_create(request):
+""" def get_create(request):
     print("get create")
     form = CreatePetitionForm()
     tags = Tag.objects.all().order_by("-label").reverse()
@@ -28,9 +28,9 @@ def get_create(request):
         "form": form, "tags": tags
     }
 
-    return render(request, "create-petition.html", context=context)
+    return render(request, "create-petition.html", context=context) """
 
-def post_create(request):
+""" def post_create(request):
     print("help")
 
 
@@ -43,17 +43,9 @@ def post_create(request):
 
     if form.is_valid():
         print("VALID FORM")
-        #petition = Petition.objects.get(pk=pk)
-        #description_of_petition = {etition.objects.}
-
-        #new_petition = Petition(title=form.cleaned_data['title'],description=form.cleaned_data['description'], tags=form.cleaned_data['tags'])
-        #petition.add_description(description_of_petition)
+      
 
         new_petition = form.save()
-    
-        """ signature_of_creator = Signature(signer=request.user)
-        signature_of_creator.save()
-        new_petition.signatures.add(signature_of_creator) """
         new_petition.save()
 
         
@@ -63,4 +55,33 @@ def post_create(request):
         return HttpResponseRedirect("/create")
 
     
-    return HttpResponseBadRequest()
+    return HttpResponseBadRequest() """
+
+class CreatePetitionView(View):
+    def get(self,request):
+        form = CreatePetitionForm()
+        tags = Tag.objects.all().order_by("-label").reverse()
+        context = {
+            "form": form, "tags": tags
+        }
+
+        return render(request, "create-petition.html", context=context)
+    
+    def post(self,request):
+        if request.method != "POST":
+            return HttpResponseNotAllowed(["POST"])
+
+
+        form = CreatePetitionForm(request.POST)
+
+        if form.is_valid():
+
+            new_petition = form.save()
+            new_petition.save()
+            
+            pk = form.cleaned_data["ID"]
+            
+            return HttpResponseRedirect("/create")
+
+        
+        return HttpResponseBadRequest()
