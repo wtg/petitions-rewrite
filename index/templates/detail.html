@@ -5,7 +5,7 @@
 <div class="container">
     <div class="header detail">
         <h4 class="pontiac">{{ petition.title }}</h4>
-        <h5>Created by {{ petition.author.rcs_id }}</h5>
+        <h5>Created by {{ petition.author.get_full_name }} ({{ petition.author.username.lower }})</h5>
     </div>    
     
     <div class="parent">
@@ -18,8 +18,8 @@
             <div class="signatures">
                 <h5>Signed by</h5>
                 <ul class="flex-sig-container">
-                    {% for signature in signatures %}
-                    <li class="flex-sig">{{ signature.get_initials }}</li>
+                    {% for initial in initials %}
+                    <li class="flex-sig">{{ initial }}</li>
                     {% empty %}
                     <li class="flex-sig">No signatures yet</li>
                     {% endfor %}
@@ -30,17 +30,12 @@
         <div class="right">
             <div class="info">
                 <h6>Take action</h6>
-                
                 <form method="POST">{% csrf_token %}
                     {% if user.is_authenticated %}
-                        
-                        {% load user_signed from sign_tags %}
-                        {% user_signed petition user as signed %}
-                        {% if signed %}
+                        {% if user_signed %}
                             <input type="submit" class="btn" id="signed" value="Signed" disabled>
                         {% else %}
-                            
-                            <input type="hidden" name="pk" value="{{petition.pk}}">
+                            <input type="hidden" name="pk" value="{{ petition.pk }}">
                             <input type="submit" formaction="{% url 'sign' %}" class="btn" id="sign-btn" name="sign_btn" value="Sign">
                         {% endif %}
 
@@ -51,9 +46,9 @@
             </div>
 
             <div class="info">
-                <h6>{{signatures.count}} / {{petition.expected_sig}} Signatures</h6>
+                <h6>{{initials|length}} / {{petition.expected_sig}} Signatures</h6>
                 <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: {{progress_percent}}%;" aria-valuenow="{{signatures.count}}" aria-valuemin="0" aria-valuemax="{{petition.expected_sig}}"></div>
+                    <div class="progress-bar" role="progressbar" style="width: {{progress_percent}}%;" aria-valuenow="{{initials|length}}" aria-valuemin="0" aria-valuemax="{{petition.expected_sig}}"></div>
                 </div>
             </div>
 

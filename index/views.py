@@ -26,11 +26,18 @@ def create(request):
     context = {"form": form}
     return render(request, "create.html", context=context)
 
-
 def petition_detail(request, pk):
     petition = Petition.objects.get(pk=pk)
-    signatures = petition.signatures.all()
 
+    user_signed = False
+    if petition.signatures.filter(username=request.user.username).exists():
+        user_signed = True
+
+    signatures = petition.signatures.all()
+    initials = []
+    for user in signatures:
+        initials.append(user.first_name[0] + user.last_name[0])
+        
     status = "Goal not met"
     if petition.check_enough_sigs():
         status = "Goal met"
@@ -39,7 +46,8 @@ def petition_detail(request, pk):
     progress_percent = int((petition.signatures.count() / petition.expected_sig) * 100)
     context = {
         "petition": petition,
-        "signatures": signatures,
+        "user_signed": user_signed,
+        "initials": initials,
         "status": status,
         "date": expiration_date,
         "progress_percent": progress_percent,
@@ -56,9 +64,7 @@ def sign(request):
     if form.is_valid():
         pk = form.cleaned_data["pk"]
         petition = Petition.objects.get(pk=pk)
-        new_signature = Signature(signer=request.user)
-        new_signature.save()
-        petition.signatures.add(new_signature)
+        petition.signatures.add(request.user)
         petition.save()
         return HttpResponseRedirect("/petition/" + str(pk))
 
