@@ -91,3 +91,8 @@ body {
 .card {
     min-height: 175px;
 }
+
+.headingbar{
+    margin-top: 1em;
+    margin-bottom: 1em;
+}

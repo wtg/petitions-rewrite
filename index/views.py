@@ -18,14 +18,14 @@ def all(request):
     ''' paginator separates the content of page 1 with the content of page 2, so on'''
     page = request.GET.get('page', 1)
     #show 18 petitions objects per page
-    paginator = Paginator(petitions, 2)
+    paginator = Paginator(petitions, 6)
     try:
-        users = paginator.page(page)
+        petition_page = paginator.page(page)
     except PageNotAnInteger:
-        users = paginator.page(1)
+        petition_page = paginator.page(1)
     except EmptyPage:
-        users = paginator.page(paginator.num_pages)
-    return render(request, "all-petitions.html", {'petitions': users})
+        petition_page = paginator.page(paginator.num_pages)
+    return render(request, "all-petitions.html", {'petitions': petition_page})
 
 
 def create(request):

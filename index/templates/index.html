@@ -4,18 +4,24 @@
 {% block content %}
 <div class="jumbotron jumbotron-fluid">
     <div class="caption">
-        <h1 class="pontiac">Let Your Voice Be Heard!</h1>
-        <br><br><br>
-        <h4>Create and support petitions for change on campus, whether large or small.</h4>
+        <h1 class="pontiac">Let Your Voice Be Heard</h1>
+        <br>
+        <h4 class="pontiac">with RPI Petitions <br> and Student Senate!</h4>
     </div>    
 </div>
 
 <div class="container">
-    <div class="header"><h4>Recent Petitions</h4></div>
+        <h5 class="text-center headingbar"><i>With Student Senate Petitions, create and champion petitions for change on campus, whether large or small.</i></h5>
+    <hr>
+    <div class="header text-center">
+        <h4>
+        <b>Recent Petitions</b>
+        </h4>
+    </div>
     <ul class="flex-container">  
         {% for petition in petitions %}
             <li class="flex-item">
-                <div class="card">
+                <div class="card bg-light">
                     <div class="card-body">
                         <h5 class="card-title"><a href="#">{{ petition.title }}</a></h5>
                         <h6 class="card-subtitle mb-2">{{ petition.signatures.count }} signatures</h6>
