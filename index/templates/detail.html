@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block title %} {{ petition.title }} {% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="header detail">
+        <h4 class="pontiac">{{ petition.title }}</h4>
+        <h5>Created by {{ petition.author.get_full_name }} ({{ petition.author.username.lower }})</h5>
+    </div>    
+    
+    <div class="parent">
+        <div class="left">
+            <div class="description">
+                <h5>Description</h5>
+                <p>{{ petition.description }}</p>
+            </div>
+        
+            <div class="signatures">
+                <h5>Signed by</h5>
+                <ul class="flex-sig-container">
+                    {% for initial in initials %}
+                    <li class="flex-sig">{{ initial }}</li>
+                    {% empty %}
+                    <li class="flex-sig">No signatures yet</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>   
+
+        <div class="right">
+            <div class="info">
+                <h6>Take action</h6>
+                <form method="POST">{% csrf_token %}
+                    {% if user.is_authenticated %}
+                        {% if user_signed %}
+                            <input type="submit" class="btn" id="signed" value="Signed" disabled>
+                        {% else %}
+                            <input type="hidden" name="pk" value="{{ petition.pk }}">
+                            <input type="submit" formaction="{% url 'sign' %}" class="btn" id="sign-btn" name="sign_btn" value="Sign">
+                        {% endif %}
+
+                    {% else %}
+                        <input type="submit" class="btn" id="signed" value="Login to sign" disabled>
+                    {% endif %}
+                </form>
+            </div>
+
+            <div class="info">
+                <h6>{{initials|length}} / {{petition.expected_sig}} Signatures</h6>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: {{progress_percent}}%;" aria-valuenow="{{initials|length}}" aria-valuemin="0" aria-valuemax="{{petition.expected_sig}}"></div>
+                </div>
+            </div>
+
+            <div class="info">
+                <h6>Status</h6>
+                <h5>{{status}}</h5>
+            </div>
+
+            <div class="info">
+                <h6>Expires</h6>
+                <h5> {{ date|date:'M d, Y' }} </h5>
+            </div>
+    </div>
+</div>
+{% endblock %}

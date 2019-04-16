@@ -11,3 +11,8 @@ class CreatePetitionForm(forms.ModelForm):
     class Meta:
         model = Petition
         fields = ["title", "description", "tags"]
+
+
+class SignPetitionForm(forms.Form):
+    sign_btn = forms.CharField()
+    pk = forms.IntegerField()

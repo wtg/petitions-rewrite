@@ -23,6 +23,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
+if "IDENTITY_KEY" not in os.environ:
+    sys.stderr.write("Error: The environment variable IDENTITY_KEY must be set.\n")
+    exit(1)
+
+IDENTITY_KEY = os.environ.get("IDENTITY_KEY")
+
 ALLOWED_HOSTS = []
 
 
@@ -35,6 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "django_cas_ng",
     "index",
 ]
 
@@ -46,7 +53,15 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "django_cas_ng.middleware.CASMiddleware",
 ]
+
+AUTHENTICATION_BACKENDS = [
+    "django.contrib.auth.backends.ModelBackend",
+    "petitions.backends.StudentCASBackend",
+]
+
+CAS_SERVER_URL = "https://cas-auth.rpi.edu/cas/"
 
 ROOT_URLCONF = "petitions.urls"
 

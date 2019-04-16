@@ -1,5 +1,7 @@
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
+from django.contrib.auth.models import User
 
 # Creates a tag, there can be at most three in a single petition
 class Tag(models.Model):
@@ -11,46 +13,6 @@ class Tag(models.Model):
 
     def __str__(self):
         return self.label
-
-
-# Creates a user based on their name, RCS ID and admin status
-class User(models.Model):
-    rcs_id = models.CharField(max_length=10, primary_key=True)  # RCS ID
-    name = models.CharField(max_length=50)  # The author name
-    admin = models.BooleanField(default=False)  # Is admin?
-    # Is the person banned?-- not very likely
-    banned = models.BooleanField(default=False)
-    initials = models.CharField(max_length=2)  # Their initials
-    union_member = models.BooleanField(default=False)  # Is member of the union?
-
-    # Returns their name
-    def __unicode__(self):
-        return self.rcs_id
-
-    # Returns the initials of the User using the RCS ID, first strips
-    # it of the digits at the end and then
-    def set_initials(self):
-        full_name = self.rcs_id
-        name_modified = "".join([i for i in full_name if not i.isdigit()])
-        self.initials = name_modified[-1] + name_modified[0]
-
-    # Changes the bool value that dictates whether or not a character
-    # is a admin
-    def set_admin(self, bool_val):
-        self.admin = bool_val
-
-
-# Logs a signature, there can be many in a single petition
-class Signature(models.Model):
-    # The person trying to sign the petition
-    signer = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="signatures"
-    )
-    signed_date = models.DateTimeField(default=timezone.now)  # When they signed
-
-    # Returns the signer when asked for the initials
-    def __unicode__(self):
-        return self.signer
 
 
 # Creates a response based on whether the senate is investigating the topic of the Petition
@@ -126,64 +88,73 @@ class Petition(models.Model):
     archived = models.BooleanField(default=False)
     hidden = models.BooleanField(default=False)
 
-    created_date = models.DateTimeField(
-        db_index=True, default=timezone.now
-    )  # Files the date created
-    expected_sig = models.IntegerField(
-        300
-    )  # The expected signature to move to the next step
-
+    # Files the date created
+    created_date = models.DateTimeField(db_index=True, default=timezone.now)
+    # The expected signature to move to the next step
+    expected_sig = models.IntegerField(300)
+    # The author of the petition
     author = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="petitions", blank=True, null=True
-    )  # The author of the petition
-    tags = models.ManyToManyField(
-        Tag, related_name="petitions", blank=True
-    )  # The tags, probably a max of 3
+        User, on_delete=models.CASCADE, related_name="author", blank=True, null=True
+    )
+    # The tags, probably a max of 3
+    tags = models.ManyToManyField(Tag, related_name="tags", blank=True)
+    # The signature
     signatures = models.ManyToManyField(
-        Signature, related_name="petitions", blank=True
-    )  # The signature
-
+        User, through="Signature", related_name="petition_signatures", blank=True
+    )
+    # If the senate has responded , their answer
     senate_response = models.ForeignKey(
         Response,
         on_delete=models.CASCADE,
-        related_name="petitions",
+        related_name="petition_response",
         blank=True,
         null=True,
-    )  # If the senate has responded , their answer
+    )
 
     # Returns title when asked for the item
     def __unicode__(self):
         return self.title
 
-        # Sets the hidden variable as true if we don't want it to
-        # Be displayed in the main site
-
+    # Sets the hidden variable as true if we don't want it to
+    # Be displayed in the main site
     def set_hidden(self, bool_val):
         self.hidden = bool_val
 
-        # If the petition isn't active, we can set the archived variable as true
-
+    # If the petition isn't active, we can set the archived variable as true
     def set_archived(self, bool_val):
         self.archived = bool_val
 
-        # Adds a description to the basic petitions model, with a max length
-        # of 4000 words
-
+    # Adds a description to the basic petitions model, with a max length
+    # of 4000 words
     def add_description(self, descript):
         self.description = descript
         return True
-        # Returns true if we have enough signatures on the petition
 
+    # Returns true if we have enough signatures on the petition
     def check_enough_sigs(self):
         if self.signatures.count() >= self.expected_sig:
             return True
         return False
-        # Makes sure the we have less than three tags in the model
 
+    # Makes sure the we have less than three tags in the model
     def check_tags(self):
         if self.tags.count() > 3:
             return False
         return True
 
-        # Add tag to a petition, there can be at most three in a single petition
-        # def add_tag (self):
+    # Add tag to a petition, there can be at most three in a single petition
+    # def add_tag (self):
+    def get_url(self):
+        return reverse("petition-detail", args=[str(self.ID)])
+
+
+# Logs a signature, there can be many in a single petition
+class Signature(models.Model):
+    # The person trying to sign the petition
+    signer = models.ForeignKey(User, on_delete=models.CASCADE)
+    petition = models.ForeignKey(Petition, on_delete=models.CASCADE)
+    signed_date = models.DateTimeField(default=timezone.now)  # When they signed
+
+    # Returns the signer when asked for the initials
+    def __unicode__(self):
+        return self.signer
