@@ -44,7 +44,7 @@
                 <h5 class="card-title text-center"><a href="#">{{ petition.title }}</a></h5>
                 <h6 class="card-subtitle mb-2">{{ petition.signatures.count }} signatures</h6>
                     {% for tag in petition.tags.all %}
-                        <a href="#" class="link">{{ tag }}</a><br>
+                        <a href="#" class=" Tag link">{{ tag }}</a><br>
                     {% endfor %}
             </div>
         </li>
@@ -61,7 +61,7 @@
         <!--if there are any accessable petitions before the page that we're on, be able to get access to that 'page' of information-->
         {% if petitions.has_previous %}
             <li class="page-item">
-                <a class="page-link" href="?page={{ petitions.start_index }}">First</a>
+                <a class="page-link" href="?page=1">First</a>
             </li>
             <li class="page-item">
                 <a class="page-link" href="?page={{ petitions.previous_page_number }}">&laquo;</a>
@@ -81,11 +81,13 @@
             {% endif %}
         {% endfor %}
         {% if petitions.has_next %}
+            <!--Link to the next page of objects-->
             <li class="page-item">
                 <a class="page-link" href="?page={{ petitions.next_page_number }}">&raquo;</a>
             </li>
+            <!--Link to the last page-->
             <li class="page-item">
-                <a class="page-link" href="?page={{ petitions.end_index }}">Last</a>
+                <a class="page-link" href="?page={{ petitions.paginator.num_pages }}">Last</a>
             </li>
         {% else %}
             <li class="page-item disabled"><span class="page-link">&raquo;</span></li>

@@ -96,3 +96,36 @@ body {
     margin-top: 1em;
     margin-bottom: 1em;
 }
+
+.pagination > li > a
+{
+    background-color: white;
+    color: red;
+}
+
+.pagination > li > a:focus,
+.pagination > li > a:hover,
+.pagination > li > span:focus,
+.pagination > li > span:hover
+{
+    color: red;
+    background-color: #eee;
+    border-color: #ddd;
+}
+
+.Tag{
+    padding: 1mm;
+    color: #ffffff;
+    background-color: #ed1c24;
+    border: solid 1px #ed1c24;
+    box-shadow: 3px 3px 3px #505050;
+    border-radius: 3px;
+}
+
+.Tag:hover{
+    padding: 1mm;
+    color: #ed1c24;
+    background-color: #ffffff;
+    border: solid 1px #ffffff;
+    box-shadow: 3px 3px 3px #505050;
+}
