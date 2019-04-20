@@ -94,20 +94,20 @@ body {
 
 .headingbar {
         text-align: center;
-    }
-    
-    .preface {
-        margin: auto;
-        width: 60%;
-        background-color: rgb(212, 212, 212);
-        padding: 10px;
-    }
+}
 
-    .creating {
-        background-color: #FFFFFF;
-        padding: 20px;
-    }
+.preface {
+    margin: auto;
+    width: 60%;
+    background-color: rgb(212, 212, 212);
+    padding: 10px;
+}
 
-    .guidelink {
-        color: red;
-    }
+.creating {
+    background-color: #FFFFFF;
+    padding: 20px;
+}
+
+.guidelink {
+    color: red;
+}

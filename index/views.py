@@ -20,42 +20,6 @@ def index(request):
 def all(request):
     return render(request, "all.html")
 
-""" def get_create(request):
-    print("get create")
-    form = CreatePetitionForm()
-    tags = Tag.objects.all().order_by("-label").reverse()
-    context = {
-        "form": form, "tags": tags
-    }
-
-    return render(request, "create-petition.html", context=context) """
-
-""" def post_create(request):
-    print("help")
-
-
-    if request.method != "POST":
-        return HttpResponseNotAllowed(["POST"])
-
-
-    form = CreatePetitionForm(request.POST)
-    print("created form")
-
-    if form.is_valid():
-        print("VALID FORM")
-      
-
-        new_petition = form.save()
-        new_petition.save()
-
-        
-        pk = form.cleaned_data["ID"]
-        
-        #return HttpResponseRedirect("/petition/" + str(pk))
-        return HttpResponseRedirect("/create")
-
-    
-    return HttpResponseBadRequest() """
 
 class CreatePetitionView(View):
     def get(self,request):
@@ -79,9 +43,10 @@ class CreatePetitionView(View):
             new_petition = form.save()
             new_petition.save()
             
-            pk = form.cleaned_data["ID"]
+            ##pk = form.cleaned_data["ID"] // uncomment if you want the user to be redirected to the detail view of their petition after creation (1/2)
             
-            return HttpResponseRedirect("/create")
+            return HttpResponseRedirect("/")
+            #return HttpResponseRedirect("/petition/" + str(pk)) // uncomment if you want the user to be redirected to the detail view of their petition after creation (2/2)
 
         
         return HttpResponseBadRequest()
