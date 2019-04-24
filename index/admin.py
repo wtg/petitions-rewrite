@@ -15,6 +15,9 @@ class ResponseInline(admin.TabularInline):
 
 class PetitionAdmin(admin.ModelAdmin):
     list_display = ('title', 'curr_num_sigs', 'has_resp')
+    list_filter = ('tags',)
+
+    fields = ['title', 'description', ('archived', 'hidden'), 'created_date', 'expected_sig', 'author', 'tags', 'signatures', 'senate_response']
     #inlines = [ResponseInline]
 
 
@@ -26,7 +29,7 @@ class PetitionAdmin(admin.ModelAdmin):
             return "No"
         else:
             return "Yes"
-
+    
     curr_num_sigs.short_description = "Number of Signatures"
     has_resp.short_description = "Response"
 
