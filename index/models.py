@@ -54,6 +54,61 @@ class Signature(models.Model):
         return self.signer
 
 
+class Petition(models.Model):
+    title = models.CharField(max_length=200)  # Title of petition
+    description = models.CharField(max_length=4000)  # The paragraph description
+    archived = models.BooleanField(default=False)
+    hidden = models.BooleanField(default=False)
+
+    # Files the date created
+    created_date = models.DateTimeField(db_index=True, default=timezone.now)
+
+    # The expected signature to move to the next step
+    expected_sig = models.IntegerField(default=settings.DEFAULT_EXPECTED_SIGS)
+
+    # The author of the petition
+    author = models.ForeignKey(
+        User, on_delete=models.CASCADE, related_name="petitions", blank=True, null=True
+    )
+
+    # The tags, probably a max of 3
+    tags = models.ManyToManyField(Tag, related_name="petitions", blank=True)
+
+    # The signature
+    signatures = models.ManyToManyField(Signature, related_name="petitions", blank=True)
+
+    # Returns title when asked for the item
+    def __unicode__(self):
+        return self.title
+
+    # Sets the hidden variable as true if we don't want it to
+    # Be displayed in the main site
+    def set_hidden(self, bool_val):
+        self.hidden = bool_val
+
+    # If the petition isn't active, we can set the archived variable as true
+    def set_archived(self, bool_val):
+        self.archived = bool_val
+
+    # Adds a description to the basic petitions model, with a max length
+    # of 4000 words
+    def add_description(self, descript):
+        self.description = descript
+        return True
+
+    # Returns true if we have enough signatures on the petition
+    def check_enough_sigs(self):
+        if self.signatures.count() >= self.expected_sig:
+            return True
+        return False
+
+    # Makes sure the we have less than three tags in the model
+    def check_tags(self):
+        if self.tags.count() > 3:
+            return False
+        return True
+
+
 # Creates a response based on whether the senate is investigating the topic of the Petition
 class Response(models.Model):
     senator_investigation = models.BooleanField(default=False)
@@ -62,11 +117,20 @@ class Response(models.Model):
     vote_referendum = models.BooleanField(default=False)
     refer_to_other = models.BooleanField(default=False)
 
-    investigation_info = models.CharField(max_length=1000)
-    committee_info = models.CharField(max_length=1000)
-    resolution_info = models.CharField(max_length=1000)
-    referendum_info = models.CharField(max_length=1000)
-    refer_other_info = models.CharField(max_length=1000)
+    investigation_info = models.CharField(max_length=1000, blank=True)
+    committee_info = models.CharField(max_length=1000, blank=True)
+    resolution_info = models.CharField(max_length=1000, blank=True)
+    referendum_info = models.CharField(max_length=1000, blank=True)
+    refer_other_info = models.CharField(max_length=1000, blank=True)
+
+    # petition the response is to
+    related_petition = models.OneToOneField(
+        Petition,
+        on_delete=models.CASCADE,
+        related_name="responses",
+        blank=True,
+        null=True,
+    )
 
     # If there is a senate investigation in place, set
     # senator_investigation to true, false otherwise
@@ -118,72 +182,3 @@ class Response(models.Model):
     def add_info_other(self, info):
         self.refer_other_info = info
         return self.refer_other_info
-
-
-class Petition(models.Model):
-    title = models.CharField(max_length=200)  # Title of petition
-    description = models.CharField(max_length=4000)  # The paragraph description
-    archived = models.BooleanField(default=False)
-    hidden = models.BooleanField(default=False)
-
-    created_date = models.DateTimeField(
-        db_index=True, default=timezone.now
-    )  # Files the date created
-    expected_sig = models.IntegerField(
-        default=settings.DEFAULT_EXPECTED_SIGS
-    )  # The expected signature to move to the next step
-
-    author = models.ForeignKey(
-        User, on_delete=models.CASCADE, related_name="petitions", blank=True, null=True
-    )  # The author of the petition
-    tags = models.ManyToManyField(
-        Tag, related_name="petitions", blank=True
-    )  # The tags, probably a max of 3
-    signatures = models.ManyToManyField(
-        Signature, related_name="petitions", blank=True
-    )  # The signature
-
-    senate_response = models.ForeignKey(
-        Response,
-        on_delete=models.CASCADE,
-        related_name="petitions",
-        blank=True,
-        null=True,
-    )  # If the senate has responded , their answer
-
-    # Returns title when asked for the item
-    def __unicode__(self):
-        return self.title
-
-        # Sets the hidden variable as true if we don't want it to
-        # Be displayed in the main site
-
-    def set_hidden(self, bool_val):
-        self.hidden = bool_val
-
-        # If the petition isn't active, we can set the archived variable as true
-
-    def set_archived(self, bool_val):
-        self.archived = bool_val
-
-        # Adds a description to the basic petitions model, with a max length
-        # of 4000 words
-
-    def add_description(self, descript):
-        self.description = descript
-        return True
-        # Returns true if we have enough signatures on the petition
-
-    def check_enough_sigs(self):
-        if self.signatures.count() >= self.expected_sig:
-            return True
-        return False
-        # Makes sure the we have less than three tags in the model
-
-    def check_tags(self):
-        if self.tags.count() > 3:
-            return False
-        return True
-
-        # Add tag to a petition, there can be at most three in a single petition
-        # def add_tag (self):
