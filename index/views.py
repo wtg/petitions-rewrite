@@ -8,16 +8,17 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 def index(request):
     petitions = Petition.objects.all().order_by("-created_date")[:6]
-   # p = Paginator(petitions, 3)
+    # p = Paginator(petitions, 3)
     context = {"petitions": petitions}
     return render(request, "index.html", context=context)
 
-#request information for the view_all petitions page
+
+# request information for the view_all petitions page
 def all(request):
     petitions = Petition.objects.all()
-    ''' paginator separates the content of page 1 with the content of page 2, so on'''
-    page = request.GET.get('page', 1)
-    #show 18 petitions objects per page
+    """ paginator separates the content of page 1 with the content of page 2, so on"""
+    page = request.GET.get("page", 1)
+    # show 18 petitions objects per page
     paginator = Paginator(petitions, 18)
     try:
         users = paginator.page(page)
@@ -25,7 +26,7 @@ def all(request):
         users = paginator.page(1)
     except EmptyPage:
         users = paginator.page(paginator.num_pages)
-    return render(request, "all-petitions.html", {'petitions': users})
+    return render(request, "all-petitions.html", {"petitions": users})
 
 
 def create(request):
@@ -33,8 +34,10 @@ def create(request):
     context = {"form": form}
     return render(request, "create.html", context=context)
 
+
 def about(request):
     return render(request, "about.html")
 
-'''def moderation(request):
-    return render(request, "about.html/#moderation")'''
+
+"""def moderation(request):
+    return render(request, "about.html/#moderation")"""
