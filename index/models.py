@@ -125,6 +125,7 @@ class Petition(models.Model):
     ID = models.IntegerField(primary_key=True)
     archived = models.BooleanField(default=False)
     hidden = models.BooleanField(default=False)
+    #recognized = models.BooleanField(default=False)
 
     created_date = models.DateTimeField(
         db_index=True, default=timezone.now
@@ -168,6 +169,10 @@ class Petition(models.Model):
 
         # Adds a description to the basic petitions model, with a max length
         # of 4000 words
+
+    '''def set_recognized(self, bool_val):
+        self.recognized = bool_val
+        # Senate can verify if a petition has been recognized by them'''
 
     def add_description(self, descript):
         self.description = descript

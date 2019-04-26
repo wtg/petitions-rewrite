@@ -112,8 +112,9 @@ body {
     background-color: #eee;
     border-color: #ddd;
 }
-
+/* beautification for each tag in the petition */
 .Tag{
+    font-weight: bold;
     padding: 1mm;
     color: #ffffff;
     background-color: #ed1c24;
@@ -123,6 +124,8 @@ body {
 }
 
 .Tag:hover{
+    text-decoration: none;
+    font-weight: bold;
     padding: 1mm;
     color: #ed1c24;
     background-color: #ffffff;
