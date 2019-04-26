@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% block title %}View All Petitions{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h3 class="text-light headingbar">All Petitions</h3>
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" aria-label="All resolved petitions checkbox"> Show All Resolved
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox"> Show All Recognized
+                </label>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="dropdown float-right">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="tagdropdown" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                    Sort By:
+                </button>
+                <div class="dropdown-menu" aria-labelledby="tagdropdown">
+                    <a class="dropdown-item" href="#">Most Recent</a>
+                    <a class="dropdown-item" href="#">Most Signatures</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+
+<div class="container">
+    <ul class="card-columns">
+        {% for petition in petitions %}
+        <li class="card bg-light">
+            <div class="card-body text-center">
+                <h5 class="card-title text-center"><a href="#">{{ petition.title }}</a></h5>
+                <h6 class="card-subtitle mb-2">{{ petition.signatures.count }} signatures</h6>
+                    {% for tag in petition.tags.all %}
+                        <a href="#" class="link">{{ tag }}</a><br>
+            </div>
+        </li>
+        {% endfor %}
+        <!--If there are no petitions, display this message-->
+        {% empty %}
+            <p>No petitions yet. Stay tuned!</p>
+        {% endfor %}
+    </ul>
+</div>
+
+<!--Paginator Test-->
+{% if petitions.has_other_pages %}
+    <ul class="pagination justify-content-center">
+        <!--if there are any accessable petitions before the page that we're on, be able to get access to that 'page' of information-->
+        {% if petitions.has_previous %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ petitions.start_index }}">First</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ petitions.previous_page_number }}">&laquo;</a>
+            </li>
+        <!--Else disable left arrow-->
+        {% else %}
+            <li class="page-item disabled"><span class="page-link">First</li>
+            <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+        {% endif %}
+        <!--Page number logic-->
+        {% for i in petitions.paginator.page_range %}
+            {% if petitions.number == i %}
+                <li class="page-item active">
+                    <span class="page-link">{{ i }}<span class="sr-only">(current)</span></span></li>
+            {% else %}
+                <li><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+            {% endif %}
+        {% endfor %}
+        {% if petitions.has_next %}
+            <li class="page-item">
+                <a class="page-link" href="?page={{ petitions.next_page_number }}">&raquo;</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="?page={{ petitions.end_index }}">Last</a>
+            </li>
+        {% else %}
+            <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+            <li class="page-item disabled"><span class="page-link">Last</li>
+        {% endif %}
+    </ul>
+{% endif %}
+{% endblock %}

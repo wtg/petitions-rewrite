@@ -8,3 +8,4 @@ __pycache__
 *.otf
 petitions/settings.py
 mydatabase
+*.bat
