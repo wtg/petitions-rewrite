@@ -125,7 +125,9 @@ class Petition(models.Model):
     ID = models.IntegerField(primary_key=True)
     archived = models.BooleanField(default=False)
     hidden = models.BooleanField(default=False)
+    ''' these commented sections are meant to be where recognized and resolved statuses of a Petition object would be defined. Section is not done, so if it is uncommented, site will crash'''
     #recognized = models.BooleanField(default=False)
+    #resolved = models.BooleanField(default=False)
 
     created_date = models.DateTimeField(
         db_index=True, default=timezone.now
@@ -170,9 +172,15 @@ class Petition(models.Model):
         # Adds a description to the basic petitions model, with a max length
         # of 4000 words
 
+    '''function for setting a petition object as recognized/resolved'''
+    
     '''def set_recognized(self, bool_val):
         self.recognized = bool_val
         # Senate can verify if a petition has been recognized by them'''
+
+    '''def set_resolved(self, bool_val):
+        self.resolved = bool_val
+        # Senate can verify if a petition has been resolved by them (passed, failed, etc.)'''
 
     def add_description(self, descript):
         self.description = descript

@@ -13,11 +13,11 @@ def index(request):
 
 #request information for the view_all petitions page
 def all(request):
-    #petitions2 = Petition.objects.all().order_by('archived')
+    # petitions = a 'list' of Petition objects organized by their creation date  
     petitions = Petition.objects.all().order_by("-created_date")
-    ''' paginator separates the content of page 1 with the content of page 2, so on'''
+    # paginator separates the content of page 1 with the content of page 2, so on
     page = request.GET.get('page', 1)
-    #show 18 petitions objects per page
+    #show 6 petitions objects per page 
     paginator = Paginator(petitions, 6)
     try:
         petition_page = paginator.page(page)

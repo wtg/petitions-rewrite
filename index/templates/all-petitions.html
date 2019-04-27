@@ -6,6 +6,7 @@
 <div class="container">
     <h3 class="text-dark headingbar text-center pontiac">All Petitions</h3>
     <div class="row">
+        <!--Resolved Petitions Checkbox-->
         <div class="col-sm-5">
             <div class="checkbox">
                 <label>
@@ -13,6 +14,7 @@
                 </label>
             </div>
         </div>
+        <!--Recognized Petitions Checkbox-->
         <div class="col-sm-4">
             <div class="checkbox">
                 <label>
@@ -20,6 +22,7 @@
                 </label>
             </div>
         </div>
+        <!--Sort Petitions Dropdown Menu-->
         <div class="col-sm-3">
             <div class="dropleft float-right">
                 <button class="btn btn-secondary dropdown-toggle" type="button" id="tagdropdown" data-toggle="dropdown"
@@ -36,6 +39,7 @@
 </div>
 <br>
 
+<!--Displays cards-->
 <div class="container">
     <ul class="card-columns">
         {% for petition in petitions %}
